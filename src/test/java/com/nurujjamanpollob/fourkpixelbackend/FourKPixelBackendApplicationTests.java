@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and limitations under the License.
  *
  *  If you have contributed in codebase,
- *  and want to add your name ort copyright in a particular class or method,
+ *  and want to add your name or copyright in a particular class or method,
  *  you must follow this following pattern:
  *  <code>
  *      // For a new method created by you,
