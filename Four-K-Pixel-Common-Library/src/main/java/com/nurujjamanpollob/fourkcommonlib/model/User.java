@@ -59,23 +59,28 @@
 
 package com.nurujjamanpollob.fourkcommonlib.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collation = "users")
+@NoArgsConstructor
+@Getter
+@Setter
 public class User {
 
-    private String username;
+    private String userName;
     private String password;
     private Integer userBirthDay;
     private String userRecoveryQuestion;
     private Boolean isUserActive;
-    private Integer userRecoveryCode;
-    private String[] userDevices;
     private Integer userCreationTime;
     private String userCityName;
     private String userAddressLineOne;
     private String userAddressLineTwo;
-    private Integer userTwoFactorCode;
     private String userCountryName;
     private boolean isBusiness;
     private boolean isPremium;
@@ -84,15 +89,55 @@ public class User {
     private String userHobby;
     private boolean isTwoFactorEnabled;
     private String userBio;
+    private String userShortDescription;
+    @MongoId(targetType = FieldType.TIMESTAMP)
+    private Integer userId;
 
 
 
     /**
      * @author Nurujjaman Pollob
+     * Constructor parameter to create a user and save in No-SQL database
      */
-    //TODO: Add all constructor parameter next time
-    public User(){
+    @SuppressWarnings({"unused"})
+    public User(
+            String userName,
+            String password,
+            String firstName,
+            String lastName,
+            String addressLineOne,
+            String addressLineTwo,
+            String city,
+            String country,
+            String userShortDescription,
+            String userBio,
+            String hobby,
+            Integer userId,
+            Integer birthday,
+            Integer userCreationTime,
+            Boolean isBusiness,
+            Boolean isPremium,
+            Boolean isTwoFactorEnabled,
+            Boolean isUserActive
+            ){
 
+        this.userName = userName;
+        this.password = password;
+        this.userFirstName = firstName;
+        this.userLastname = lastName;
+        this.userAddressLineOne = addressLineOne;
+        this.userAddressLineTwo = addressLineTwo;
+        this.userCityName = city;
+        this.userCountryName = country;
+        this.userShortDescription = userShortDescription;
+        this.userBio = userBio;
+        this.userHobby = hobby;
+        this.userBirthDay = birthday;
+        this.userCreationTime = userCreationTime;
+        this.isBusiness = isBusiness;
+        this.isPremium = isPremium;
+        this.isTwoFactorEnabled = isTwoFactorEnabled;
+        this.isUserActive = isUserActive;
 
     }
 }
