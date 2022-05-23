@@ -57,15 +57,38 @@
  *  </code>
  */
 
-package com.nurujjamanpollob.fourkpixelbackend.controllers;
+package com.nurujjamanpollob.fourkcommonlib.utility;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.*;
 
 /**
- * Rest API controller of Four K Pixel Application.
- * All API Related method can be found here.
- *
+ * This class is expected to be store static methods only,
+ * and to write methods that frequently inside project.
+ * This class should not accept constructor.
  */
-@RestController
-public class RestApiController {
+@SuppressWarnings({"unused"})
+public class UtilityCollection {
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * Method to check if a String is encoded by {@link org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder}
+     * @param password the password to check
+     * @return true if its encoded, else false.
+     * @see org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder for more information.
+     */
+    public static boolean isPasswordEncodedWithBcryptPasswordEncryptor(String password){
+
+        if(password == null || password.length() != 60){
+            return false;
+        }
+
+        // Create password detection pattern
+        Pattern BCRYPT_PATTERN = compile("\\A\\$2(a|y|b)?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
+
+        // Return result
+        return BCRYPT_PATTERN.matcher(password).matches();
+
+    }
 }

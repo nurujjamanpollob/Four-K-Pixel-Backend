@@ -57,15 +57,42 @@
  *  </code>
  */
 
-package com.nurujjamanpollob.fourkpixelbackend.controllers;
+package com.nurujjamanpollob.fourkcommonlib.model;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- * Rest API controller of Four K Pixel Application.
- * All API Related method can be found here.
- *
- */
-@RestController
-public class RestApiController {
+@Document(collation = "users")
+public class User {
+
+    private String username;
+    private String password;
+    private Integer userBirthDay;
+    private String userRecoveryQuestion;
+    private Boolean isUserActive;
+    private Integer userRecoveryCode;
+    private String[] userDevices;
+    private Integer userCreationTime;
+    private String userCityName;
+    private String userAddressLineOne;
+    private String userAddressLineTwo;
+    private Integer userTwoFactorCode;
+    private String userCountryName;
+    private boolean isBusiness;
+    private boolean isPremium;
+    private String userFirstName;
+    private String userLastname;
+    private String userHobby;
+    private boolean isTwoFactorEnabled;
+    private String userBio;
+
+
+
+    /**
+     * @author Nurujjaman Pollob
+     */
+    //TODO: Add all constructor parameter next time
+    public User(){
+
+
+    }
 }

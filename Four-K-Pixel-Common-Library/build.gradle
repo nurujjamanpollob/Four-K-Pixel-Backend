@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.6.7'
 }
 
 group 'com.nurujjamanpollob.fourkcommonlib'
@@ -10,8 +12,12 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 test {
