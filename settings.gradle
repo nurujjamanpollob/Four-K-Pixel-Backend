@@ -1,1 +1,3 @@
 rootProject.name = 'Four-K-Pixel-Backend'
+include 'Four-K-Pixel-Common-Library'
+
