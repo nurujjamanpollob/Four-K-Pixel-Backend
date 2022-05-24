@@ -59,6 +59,7 @@
 
 package com.nurujjamanpollob.fourkcommonlib.utility;
 
+import java.math.BigInteger;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.*;
@@ -90,5 +91,16 @@ public class UtilityCollection {
         // Return result
         return BCRYPT_PATTERN.matcher(password).matches();
 
+    }
+
+    public static BigInteger stringToBigIntegerConverter(String inputCharacter){
+
+        StringBuilder result = new StringBuilder();
+
+        for(char c : inputCharacter.toCharArray()){
+            result.append((long) c);
+        }
+
+        return new BigInteger(result.toString());
     }
 }

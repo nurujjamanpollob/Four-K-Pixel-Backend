@@ -59,12 +59,14 @@
 
 package com.nurujjamanpollob.fourkcommonlib.model;
 
+import com.nurujjamanpollob.fourkcommonlib.utility.UtilityCollection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import java.math.BigInteger;
 
 @Document(collation = "users")
 @NoArgsConstructor
@@ -90,8 +92,8 @@ public class User {
     private boolean isTwoFactorEnabled;
     private String userBio;
     private String userShortDescription;
-    @MongoId(targetType = FieldType.TIMESTAMP)
-    private Integer userId;
+    @Id
+    private BigInteger userId;
 
 
 
@@ -138,6 +140,15 @@ public class User {
         this.isPremium = isPremium;
         this.isTwoFactorEnabled = isTwoFactorEnabled;
         this.isUserActive = isUserActive;
+        /*
+        MongoBd do not generate automatic ID,
+        so our objective is to convert username to Big Integer,
+        So that it will be able to save a lot of database operations, increment and insertion,
+        which is not optimal for performance.
+
+        Using UTC time Integer conversion may lead to duplicated ID, if user creating at the same time.
+         */
+        this.userId = UtilityCollection.stringToBigIntegerConverter(userName);
 
     }
 }
