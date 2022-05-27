@@ -74,6 +74,12 @@ public class UtilityCollection {
 
     /**
      * @author Nurujjaman Pollob 2022
+     * Suppress default constructor
+     */
+    private UtilityCollection(){}
+
+    /**
+     * @author Nurujjaman Pollob 2022
      * Method to check if a String is encoded by {@link org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder}
      * @param password the password to check
      * @return true if its encoded, else false.
@@ -94,7 +100,7 @@ public class UtilityCollection {
     }
 
     /**
-     * @author Nurujjaman Pollob
+     * @author Nurujjaman Pollob 2022
      * Converts {@link java.lang.String} to {@link java.math.BigInteger}
      * This algorithm works in simple way, get each character from Input String,
      * Then, get ASCII value(0-127) for this character,
