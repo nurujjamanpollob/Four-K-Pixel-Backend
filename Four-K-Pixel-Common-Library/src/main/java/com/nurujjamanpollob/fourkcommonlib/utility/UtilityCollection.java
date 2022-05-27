@@ -86,19 +86,29 @@ public class UtilityCollection {
         }
 
         // Create password detection pattern
-        Pattern BCRYPT_PATTERN = compile("\\A\\$2(a|y|b)?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
+        Pattern BCRYPT_PATTERN = compile("\\A\\$2([ayb])?\\$(\\d\\d)\\$[./\\dA-Za-z]{53}");
 
         // Return result
         return BCRYPT_PATTERN.matcher(password).matches();
 
     }
 
-    public static BigInteger stringToBigIntegerConverter(String inputCharacter){
+    /**
+     * @author Nurujjaman Pollob
+     * Converts {@link java.lang.String} to {@link java.math.BigInteger}
+     * This algorithm works in simple way, get each character from Input String,
+     * Then, get ASCII value(0-127) for this character,
+     * and then, store in {@link java.lang.StringBuilder} collection,
+     * finally, it will be converted to {@link java.math.BigInteger} instance, and returned.
+     * @param inputString the String that needs to be converted
+     * @return {@link java.math.BigInteger}
+     */
+    public static BigInteger stringToBigIntegerConverter(String inputString){
 
         StringBuilder result = new StringBuilder();
 
-        for(char c : inputCharacter.toCharArray()){
-            result.append((long) c);
+        for(char c : inputString.toCharArray()){
+            result.append((int) c);
         }
 
         return new BigInteger(result.toString());
