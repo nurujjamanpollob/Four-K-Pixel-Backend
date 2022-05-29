@@ -112,12 +112,12 @@ public class UtilityCollectionTest {
     }
 
     /**
-     * @author Nurujjaman Pollob
+     * @author Nurujjaman Pollob 2022
      * Method to test a String to convert to a {@link java.math.BigInteger} for mainly generate an Individual account ID number
      * And store in database
      */
     @Test
-    public void testStringToLongConvert(){
-        System.out.println(UtilityCollection.stringToBigIntegerConverter("nurujjamanpollob"));
+    public void testStringToBigIntegerConvert(){
+        assertTrue(UtilityCollection.stringToBigIntegerConverter("nurujjamanpollob").intValue() > 0);
     }
 }

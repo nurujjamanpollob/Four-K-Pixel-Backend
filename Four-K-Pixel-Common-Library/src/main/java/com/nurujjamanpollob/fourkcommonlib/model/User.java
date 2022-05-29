@@ -76,6 +76,8 @@ public class User {
 
     private String userName;
     private String password;
+    private Integer userBirthYear;
+    private Integer userBirthMonth;
     private Integer userBirthDay;
     private String userRecoveryQuestion;
     private Boolean isUserActive;
@@ -93,7 +95,7 @@ public class User {
     private String userBio;
     private String userShortDescription;
     @Id
-    private BigInteger userId;
+    private Integer userId;
 
 
 
@@ -115,7 +117,9 @@ public class User {
             String userBio,
             String hobby,
             Integer userId,
-            Integer birthday,
+            Integer birthYear,
+            Integer birthMonth,
+            Integer birthDay,
             Integer userCreationTime,
             Boolean isBusiness,
             Boolean isPremium,
@@ -134,7 +138,9 @@ public class User {
         this.userShortDescription = userShortDescription;
         this.userBio = userBio;
         this.userHobby = hobby;
-        this.userBirthDay = birthday;
+        this.userBirthDay = birthDay;
+        this.userBirthMonth = birthMonth;
+        this.userBirthYear = birthYear;
         this.userCreationTime = userCreationTime;
         this.isBusiness = isBusiness;
         this.isPremium = isPremium;
@@ -143,12 +149,13 @@ public class User {
         /*
         MongoBd do not generate automatic ID,
         so our objective is to convert username to Big Integer,
+        and get its Integer Value
         So that it will be able to save a lot of database operations, increment and insertion,
         which is not optimal for performance.
 
         Using UTC time Integer conversion may lead to duplicated ID, if user creating at the same time.
          */
-        this.userId = UtilityCollection.stringToBigIntegerConverter(userName);
+       this.userId = UtilityCollection.stringToBigIntegerConverter(userName).intValue();
 
     }
 }

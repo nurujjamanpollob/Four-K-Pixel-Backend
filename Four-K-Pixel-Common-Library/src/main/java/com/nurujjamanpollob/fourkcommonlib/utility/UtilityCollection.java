@@ -60,6 +60,8 @@
 package com.nurujjamanpollob.fourkcommonlib.utility;
 
 import java.math.BigInteger;
+import java.time.DateTimeException;
+import java.time.Month;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.*;
@@ -74,19 +76,26 @@ public class UtilityCollection {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Method to check if a String is encoded by {@link org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder}
+     * Suppress default constructor
+     */
+    private UtilityCollection() {
+    }
+
+    /**
      * @param password the password to check
      * @return true if its encoded, else false.
+     * @author Nurujjaman Pollob 2022
+     * Method to check if a String is encoded by {@link org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder}
      * @see org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder for more information.
      */
-    public static boolean isPasswordEncodedWithBcryptPasswordEncryptor(String password){
+    public static boolean isPasswordEncodedWithBcryptPasswordEncryptor(String password) {
 
-        if(password == null || password.length() != 60){
+        if (password == null || password.length() != 60) {
             return false;
         }
 
         // Create password detection pattern
-        Pattern BCRYPT_PATTERN = compile("\\A\\$2(a|y|b)?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
+        Pattern BCRYPT_PATTERN = compile("\\A\\$2([ayb])?\\$(\\d\\d)\\$[./\\dA-Za-z]{53}");
 
         // Return result
         return BCRYPT_PATTERN.matcher(password).matches();
@@ -94,19 +103,54 @@ public class UtilityCollection {
     }
 
     /**
-     * @author Nurujjaman Pollob
-     * This method convert a String to a char array, then it converts the single char's ASCII value:
-     * @param inputCharacter
-     * @return
+     * @param inputString the String that needs to be converted
+     * @return {@link java.math.BigInteger}
+     * @author Nurujjaman Pollob 2022
+     * Converts {@link java.lang.String} to {@link java.math.BigInteger}
+     * This algorithm works in simple way, get each character from Input String,
+     * Then, get ASCII value(0-127) for this character,
+     * and then, store in {@link java.lang.StringBuilder} collection,
+     * finally, it will be converted to {@link java.math.BigInteger} instance, and returned.
      */
-    public static BigInteger stringToBigIntegerConverter(String inputCharacter){
+    public static BigInteger stringToBigIntegerConverter(String inputString) throws NullPointerException {
 
         StringBuilder result = new StringBuilder();
 
-        for(char c : inputCharacter.toCharArray()){
-            result.append((long) c);
+        for (char c : inputString.toCharArray()) {
+            result.append((int) c);
         }
 
         return new BigInteger(result.toString());
+    }
+
+    /**
+     * @author Nurujjaman Pollob
+     * @param month the number as month
+     * @return {@link Month}
+     * @throws DateTimeException if the Integer parameter is not between 1 - 12
+     * @author Nurujjaman Pollob 2022
+     * This method used to return a {@link Month} instance
+     * The integer range should be between 1 -12
+     */
+    public static Month getMonthInstanceFromInteger(Integer month) throws DateTimeException {
+
+        if(month < 1 || month > 12){
+            throw new DateTimeException("Not a valid range of month");
+        }
+
+        return
+                month == 1 ? Month.JANUARY
+                        : month == 2 ? Month.FEBRUARY
+                        : month == 3 ? Month.MARCH
+                        : month == 4 ? Month.APRIL
+                        : month == 5 ? Month.MAY
+                        : month == 6 ? Month.JUNE
+                        : month == 7 ? Month.JULY
+                        : month == 8 ? Month.AUGUST
+                        : month == 9 ? Month.SEPTEMBER
+                        : month == 10 ? Month.OCTOBER
+                        : month == 11 ? Month.NOVEMBER
+                        : Month.DECEMBER;
+
     }
 }
