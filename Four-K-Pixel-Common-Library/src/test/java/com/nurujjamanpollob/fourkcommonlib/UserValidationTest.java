@@ -83,7 +83,7 @@ public class UserValidationTest {
     public void testSimpleUsernameIsValid() {
 
         userObject = new User(
-                "nurujjamanpollob",
+                "nurujjamanpollob", // Username
                 null,
                 null,
                 null,
@@ -112,10 +112,10 @@ public class UserValidationTest {
      * Test method to test a username, which should throw {@link InvalidUserException} because it has capital latter
      */
     @Test
-    public void usernameInvalidBecauseItHasCapitalLatter(){
+    public void testUsernameInvalidBecauseItHasCapitalLatter(){
 
         userObject = new User(
-                "Nurujjamanpollob",
+                "Nurujjamanpollob", // Username
                 null,
                 null,
                 null,
@@ -145,10 +145,10 @@ public class UserValidationTest {
      * Test method to test a username, which should throw {@link InvalidUserException} because it has special character
      */
     @Test
-    public void usernameInvalidBecauseItHasSpecialCharacter(){
+    public void testUsernameInvalidBecauseItHasSpecialCharacter(){
 
         userObject = new User(
-                "nurujjamanpollob$",
+                "nurujjamanpollob$", // Username
                 null,
                 null,
                 null,
@@ -178,10 +178,10 @@ public class UserValidationTest {
      * Test method to test a username, which should throw {@link InvalidUserException} because username length is short
      */
     @Test
-    public void usernameInvalidBecauseItsLengthIsShort(){
+    public void TestUsernameInvalidBecauseItsLengthIsShort(){
 
         userObject = new User(
-                "np",
+                "np", // Username
                 null,
                 null,
                 null,
@@ -211,10 +211,10 @@ public class UserValidationTest {
      * Test method to test a username, which should throw {@link InvalidUserException} because username length is long
      */
     @Test
-    public void usernameInvalidBecauseItsLengthIsLong(){
+    public void testUsernameInvalidBecauseItsLengthIsLong(){
 
         userObject = new User(
-                "np1020304050607080901",
+                "np1020304050607080901", // Username
                 null,
                 null,
                 null,
@@ -239,4 +239,133 @@ public class UserValidationTest {
         assertThrows(InvalidUserException.class, ()-> new UserValidation(userObject).validateUser());
     }
 
+    /**
+     * @author Nurujjaman Pollob 2022
+     * Test method to test a user age,
+     * this test should not throw any exception
+     * because the user age is more than thirteen year.
+     */
+    @Test
+    public void testUserAgeIsValidBecauseHeIsAboveThirteenYearOld(){
+
+        userObject = new User(
+                "nurujjamanpollob",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                1998, // User birth year
+                12, // User birth month
+                7, // User birth day
+                11111,
+                false,
+                true,
+                false,
+                true
+        );
+
+        assertDoesNotThrow(() -> new UserValidation(userObject).validateUser());
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * Test method to test a user age,
+     * this test should throw {@link InvalidUserException}
+     * because the user age is younger than thirteen year
+     */
+    @Test
+    public void testUserIsYounger(){
+
+        userObject = new User(
+                "nurujjamanpollob",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2010, // User birth year
+                4, // User birth month
+                29, // User birth day
+                11111,
+                false,
+                true,
+                false,
+                true
+        );
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(userObject).validateUser());
+    }
+
+    @Test
+    public void testUserFirstLastNameIsInvalidBecauseOfNull(){
+
+        userObject = new User(
+                "nurujjamanpollob",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                1998, // User birth year
+                12, // User birth month
+                7, // User birthday
+                11111,
+                false,
+                true,
+                false,
+                true
+        );
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(userObject).validateUser());
+
+    }
+
+    @Test
+    public void testUserFirstLastNameIsInvalidBecauseItHasInvalidSpecialCharacter(){
+
+        userObject = new User(
+                "nurujjamanpollob",
+                null,
+                "Nurujjaman$",
+                "Pollob",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                1998, // User birth year
+                12, // User birth month
+                7, // User birthday
+                11111,
+                false,
+                true,
+                false,
+                true
+        );
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(userObject).validateUser());
+
+    }
 }

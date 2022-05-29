@@ -89,14 +89,14 @@ public class UtilityCollectionTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Method to test encoded password, but with a one character removed.
+     * Method to test encoded password, but with some character removed.
      * So the method {@link UtilityCollection#isPasswordEncodedWithBcryptPasswordEncryptor(String)} should return false
      * Note, this algorithm is not perfect, and it may evaluate wrong result
      */
     @Test
-    public void testBcryptEncodedPasswordInvalidBecauseACharacterIsRemoved(){
+    public void testBcryptEncodedPasswordInvalidBecauseSomeCharacterIsRemoved(){
 
-        assertFalse(UtilityCollection.isPasswordEncodedWithBcryptPasswordEncryptor("$2a$10$6Yo4UW7jAWZEcM63u2OZludKALQku4SNFGvCG.fN789AyLisbywG"));
+        assertFalse(UtilityCollection.isPasswordEncodedWithBcryptPasswordEncryptor("$2a$10$6Yo4UW7jAWZEcM63u2OZludKALQku4SCG."));
     }
 
     /**

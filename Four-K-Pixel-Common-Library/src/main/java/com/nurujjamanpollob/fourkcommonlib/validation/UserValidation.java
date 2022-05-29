@@ -86,6 +86,12 @@ public record UserValidation(User userToValidate) {
 
         // Validate user age
         validateUserBirthInformation();
+
+        // Validate first name
+        validateFirstName();
+
+        // Validate last name
+        validateLastName();
     }
 
     /**
@@ -154,6 +160,31 @@ public record UserValidation(User userToValidate) {
         if(userAge < 13){
             throw new InvalidUserException("The user is younger to use this website.");
         }
+
+    }
+
+    private void validateFirstName() throws InvalidUserException{
+        validateName(userToValidate().getUserFirstName());
+
+    }
+
+    private void validateLastName() throws  InvalidUserException{
+        validateName(userToValidate().getUserLastname());
+    }
+    private void validateName(String name) throws InvalidUserException {
+
+        if(name == null){
+            throw new InvalidUserException("The Name can't be null");
+        }
+        // Create name pattern
+        Pattern namePattern = Pattern.compile("^[A-Za-z]*$");
+
+        Matcher matcher = namePattern.matcher(name);
+
+        if(!matcher.matches()){
+            throw new InvalidUserException("User First name or last name is invalid");
+        }
+
 
     }
 

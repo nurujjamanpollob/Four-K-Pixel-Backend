@@ -90,10 +90,6 @@ public class UtilityCollection {
      */
     public static boolean isPasswordEncodedWithBcryptPasswordEncryptor(String password) {
 
-        if (password == null || password.length() != 60) {
-            return false;
-        }
-
         // Create password detection pattern
         Pattern BCRYPT_PATTERN = compile("\\A\\$2([ayb])?\\$(\\d\\d)\\$[./\\dA-Za-z]{53}");
 
