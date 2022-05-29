@@ -93,6 +93,12 @@ public class UtilityCollection {
 
     }
 
+    /**
+     * @author Nurujjaman Pollob
+     * This method convert a String to a char array, then it converts the single char's ASCII value:
+     * @param inputCharacter
+     * @return
+     */
     public static BigInteger stringToBigIntegerConverter(String inputCharacter){
 
         StringBuilder result = new StringBuilder();
