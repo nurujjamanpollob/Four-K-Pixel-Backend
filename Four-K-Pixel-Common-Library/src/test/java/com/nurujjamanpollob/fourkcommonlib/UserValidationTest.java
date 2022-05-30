@@ -82,21 +82,22 @@ public class UserValidationTest {
 
 
         assertDoesNotThrow(() -> new UserValidation(new User(
-                "nurujjamanpollob", // Username
-                null,
+                "nurujjamanpollob",
+                "password geos here",
                 "Nurujjaman",
                 "Pollob",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                1998,
-                12,
-                7,
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
+                1998, // Birth year
+                12, // Birth month
+                7, // Birth Day
                 11111,
                 false,
                 true,
@@ -114,21 +115,22 @@ public class UserValidationTest {
 
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
-                "Nurujjamanpollob", // Username
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                1998,
-                12,
-                7,
+                "Nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman",
+                "Pollob",
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
+                1998, // Birth year
+                12, // Birth month
+                7, // Birth Day
                 11111,
                 false,
                 true,
@@ -146,21 +148,22 @@ public class UserValidationTest {
 
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
-                "nurujjamanpollob$", // Username
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                1998,
-                12,
-                7,
+                "nurujjamanpollob$",
+                "password geos here",
+                "Nurujjaman",
+                "Pollob",
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
+                1998, // Birth year
+                12, // Birth month
+                7, // Birth Day
                 11111,
                 false,
                 true,
@@ -178,21 +181,22 @@ public class UserValidationTest {
 
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
-                "np", // Username
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                1998,
-                12,
-                7,
+                "np",
+                "password geos here",
+                "Nurujjaman",
+                "Pollob",
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
+                1998, // Birth year
+                12, // Birth month
+                7, // Birth Day
                 11111,
                 false,
                 true,
@@ -209,21 +213,22 @@ public class UserValidationTest {
     public void testUsernameInvalidBecauseItsLengthIsLong() {
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
-                "np1020304050607080901", // Username
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                1998,
-                12,
-                7,
+                "nurujjamanpollob01234567890",
+                "password geos here",
+                "Nurujjaman",
+                "Pollob",
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
+                1998, // Birth year
+                12, // Birth month
+                7, // Birth Day
                 11111,
                 false,
                 true,
@@ -243,20 +248,21 @@ public class UserValidationTest {
 
         assertDoesNotThrow(() -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
+                "password geos here",
                 "Nurujjaman",
                 "Pollob",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                1998, // User birth year
-                12, // User birth month
-                7, // User birth day
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
+                1998, // Birth year
+                12, // Birth month
+                7, // Birth Day
                 11111,
                 false,
                 true,
@@ -277,20 +283,21 @@ public class UserValidationTest {
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                2010, // User birth year
-                4, // User birth month
-                29, // User birth day
+                "password geos here",
+                "Nurujjaman",
+                "Pollob",
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
+                2010, // Birth year
+                7, // Birth month
+                7, // Birth Day
                 11111,
                 false,
                 true,
@@ -309,17 +316,18 @@ public class UserValidationTest {
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
-                null, // User first name
-                null, // User last name
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                "password geos here",
+                null, // User First Name
+                null, // User Last Name
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
                 1998,
                 12,
                 7,
@@ -342,17 +350,18 @@ public class UserValidationTest {
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
+                "password geos here",
                 "Nurujjaman$", // User First Name
                 "Pollob", // User Last Name
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
                 1998,
                 12,
                 7,
@@ -377,17 +386,18 @@ public class UserValidationTest {
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
+                "password geos here",
                 "NP", // User First Name
                 "Pollob", // User Last Name
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
                 1998,
                 12,
                 7,
@@ -412,17 +422,18 @@ public class UserValidationTest {
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
+                "password geos here",
                 "Nurujjaman", // User First Name
-                "Pollob1", // User Last Name
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                "Pollob1", // User Last name
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
                 1998,
                 12,
                 7,
@@ -445,17 +456,18 @@ public class UserValidationTest {
 
         assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
-                "NurujjamanNurujja", // User First Name
-                "Pollob", // User Last Name
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                "password geos here",
+                "NurujjamanNurujjam", // User First Name
+                "Pollob", // User Last name
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
                 1998,
                 12,
                 7,
@@ -479,17 +491,18 @@ public class UserValidationTest {
 
         assertDoesNotThrow(() -> new UserValidation(new User(
                 "nurujjamanpollob",
-                null,
+                "password geos here",
                 "Nurujjaman", // User First Name
                 "Pollob", // User Last Name
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                "Address Line One",
+                "Address Line Two",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                111111,
                 1998,
                 12,
                 7,

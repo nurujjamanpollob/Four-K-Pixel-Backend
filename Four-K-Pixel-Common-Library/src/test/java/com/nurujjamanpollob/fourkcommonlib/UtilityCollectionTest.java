@@ -77,7 +77,7 @@ public class UtilityCollectionTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * This test method test a password encrypted with {@link BCryptPasswordEncoder}
+     * @apiNote This test method test a password encrypted with {@link BCryptPasswordEncoder}
      * So the method {@link UtilityCollection#isPasswordEncodedWithBcryptPasswordEncryptor(String)} should return true
      * Note, this algorithm is not perfect, and it may evaluate wrong result
      */
@@ -89,7 +89,7 @@ public class UtilityCollectionTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Method to test encoded password, but with some character removed.
+     * @apiNote Method to test encoded password, but with some character removed.
      * So the method {@link UtilityCollection#isPasswordEncodedWithBcryptPasswordEncryptor(String)} should return false
      * Note, this algorithm is not perfect, and it may evaluate wrong result
      */
@@ -101,7 +101,7 @@ public class UtilityCollectionTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Method to test encoded password, but it's identify factor replaced with z
+     * @apiNote Method to test encoded password, but it's identify factor replaced with z
      * So the method {@link UtilityCollection#isPasswordEncodedWithBcryptPasswordEncryptor(String)} should return false
      * Note, this algorithm is not perfect, and it may evaluate wrong result
      */
@@ -113,7 +113,7 @@ public class UtilityCollectionTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Method to test a String to convert to a {@link java.math.BigInteger} for mainly generate an Individual account ID number
+     * @apiNote Method to test a String to convert to a {@link java.math.BigInteger} for mainly generate an Individual account ID number
      * And store in database
      */
     @Test

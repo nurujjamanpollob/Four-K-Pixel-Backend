@@ -118,6 +118,7 @@ public class User {
             String userShortDescription,
             String userBio,
             String hobby,
+            String userRecoveryQuestion,
             Integer userId,
             Integer birthYear,
             Integer birthMonth,
@@ -140,6 +141,7 @@ public class User {
         this.userShortDescription = userShortDescription;
         this.userBio = userBio;
         this.userHobby = hobby;
+        this.userRecoveryQuestion = userRecoveryQuestion;
         this.userBirthDay = birthDay;
         this.userBirthMonth = birthMonth;
         this.userBirthYear = birthYear;
@@ -178,6 +180,7 @@ public class User {
             String userShortDescription,
             String userBio,
             String hobby,
+            String userRecoveryQuestion,
             Integer userId,
             Integer birthYear,
             Integer birthMonth,
@@ -201,6 +204,7 @@ public class User {
         this.userShortDescription = userShortDescription;
         this.userBio = userBio;
         this.userHobby = hobby;
+        this.userRecoveryQuestion = userRecoveryQuestion;
         this.userBirthDay = birthDay;
         this.userBirthMonth = birthMonth;
         this.userBirthYear = birthYear;
