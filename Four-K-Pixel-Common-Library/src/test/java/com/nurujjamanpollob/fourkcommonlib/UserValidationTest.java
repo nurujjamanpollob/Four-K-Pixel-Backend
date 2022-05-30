@@ -969,7 +969,7 @@ public class UserValidationTest {
 
     }
 
-    //TODO: Need to write test for password and recovery question field!
+    //TODO: Need to write test for password, user bio, hobby, short description and recovery question field!
 
 
 }
