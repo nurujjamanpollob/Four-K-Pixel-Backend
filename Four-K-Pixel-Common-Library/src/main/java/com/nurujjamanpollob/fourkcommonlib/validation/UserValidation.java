@@ -163,17 +163,32 @@ public record UserValidation(User userToValidate) {
 
     }
 
+    /**
+     * @author Nurujjaman Pollob 2022
+     * Method to validate User First name
+     * @throws InvalidUserException if the user first name contains character other than a-z,A-Z or the name length is not between 3 - 16
+     */
     private void validateFirstName() throws InvalidUserException{
         validateName(userToValidate().getUserFirstName());
 
     }
 
+    /**
+     * @author Nurujjaman Pollob 2022
+     * Method to validate User First name
+     * @throws InvalidUserException if the user first name contains character other than a-z,A-Z or the name length is not between 3 - 16
+     */
     private void validateLastName() throws  InvalidUserException{
         validateName(userToValidate().getUserLastname());
     }
+    /**
+     * @author Nurujjaman Pollob 2022
+     * Method to validate User Full name(First + Last)
+     * @throws InvalidUserException if the user first name contains character other than a-z,A-Z or the name length is not between 3 - 16
+     */
     private void validateName(String name) throws InvalidUserException {
 
-        if(name == null){
+        if(name == null || name.length() > 16 || name.length() < 3){
             throw new InvalidUserException("The Name can't be null");
         }
         // Create name pattern

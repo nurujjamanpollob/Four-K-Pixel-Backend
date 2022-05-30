@@ -59,7 +59,9 @@
 
 package com.nurujjamanpollob.fourkcommonlib.model;
 
+import com.nurujjamanpollob.fourkcommonlib.exception.InvalidUserException;
 import com.nurujjamanpollob.fourkcommonlib.utility.UtilityCollection;
+import com.nurujjamanpollob.fourkcommonlib.validation.UserValidation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -125,7 +127,7 @@ public class User {
             Boolean isPremium,
             Boolean isTwoFactorEnabled,
             Boolean isUserActive
-            ){
+            ) throws InvalidUserException {
 
         this.userName = userName;
         this.password = password;
@@ -156,6 +158,9 @@ public class User {
         Using UTC time Integer conversion may lead to duplicated ID, if user creating at the same time.
          */
        this.userId = UtilityCollection.stringToBigIntegerConverter(userName).intValue();
+
+       // Validate automatically
+        new UserValidation(this).validateUser();
 
     }
 }
