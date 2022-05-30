@@ -94,7 +94,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998, // Birth year
                 12, // Birth month
                 7, // Birth Day
@@ -127,7 +126,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998, // Birth year
                 12, // Birth month
                 7, // Birth Day
@@ -160,7 +158,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998, // Birth year
                 12, // Birth month
                 7, // Birth Day
@@ -193,7 +190,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998, // Birth year
                 12, // Birth month
                 7, // Birth Day
@@ -225,7 +221,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998, // Birth year
                 12, // Birth month
                 7, // Birth Day
@@ -259,7 +254,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998, // Birth year
                 12, // Birth month
                 7, // Birth Day
@@ -294,7 +288,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 2010, // Birth year
                 7, // Birth month
                 7, // Birth Day
@@ -327,7 +320,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998,
                 12,
                 7,
@@ -361,7 +353,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998,
                 12,
                 7,
@@ -397,7 +388,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998,
                 12,
                 7,
@@ -433,7 +423,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998,
                 12,
                 7,
@@ -467,7 +456,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998,
                 12,
                 7,
@@ -502,7 +490,6 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
-                111111,
                 1998,
                 12,
                 7,
@@ -514,6 +501,475 @@ public class UserValidationTest {
         )).validateUser());
 
     }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Address line one, which is contains unsupported character, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testAddressLineOneInvalidBecauseItHasContainsInvalidCharacter(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One$", // Address line one
+                "Address Line Two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Address line one, which is short, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testAddressLineOneInvalidBecauseItsShort(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Alo", // Address line one
+                "Address Line Two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Address line two, which is contains unsupported character, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testAddressLineTwoInvalidBecauseItHasContainsInvalidCharacter(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One", // Address line one
+                "$ Address Line two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Address line one, which is too long, should throw {@link InvalidUserException}
+     * This test also cover length for address line two, city name.
+     */
+    @Test
+    public void testAddressLineInvalidBecauseAddressLineOneIsTooLong(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One     123712896438726423786437246327864738264873264382746328746328746328746328746327846327846328746328746238746328764328746832423874" +
+                        "23646234873264732643724632746324763243624327643872463287463274863247632874636", // Address line one
+                "Address Line two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User City, which is contains unsupported character, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserCityInvalidBecauseItHasContainsInvalidCharacter(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One", // Address line one
+                "Address Line two", // Address line two (Optional)
+                "Dinajpur City $", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Country name, which is contains unsupported character, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserCountryInvalidBecauseItHasContainsInvalidCharacter(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One", // Address line one
+                "Address Line two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh 5270", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Country name, which length is short, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserCountryInvalidBecauseItsShort(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One", // Address line one
+                "Address Line two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "B", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Country name, which is null, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserCountryInvalidBecauseItsNull(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One", // Address line one
+                "Address Line two", // Address line two (Optional)
+                "Dinajpur", // User city
+                null, // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate User Country name, which is too long, should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserCountryInvalidBecauseItsTooLong(){
+
+        assertThrows(InvalidUserException.class, ()-> new
+                UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address Line One", // Address line one
+                "Address Line two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "gsdhjfgsjhadfghjasdggfhsdafhsdafghsdjafgsdhjafgsdgfdhd", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a valid address line one,
+     * which has all supported character set, and should not throw any exception
+     */
+    @Test
+    public void testAddressLineOneValidHasAllSupportedCharacter(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Village: Khattausna, Post-Office: Khattsusna (5270), Police_Station: Hakimpur & District: Dinajpur.", // Address line one
+                "Address Line two", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a valid address line two,
+     * which is optional and null, and should not throw any exception
+     */
+    @Test
+    public void testAddressLineTwoValidCanBeNull(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Village: Khattausna, Post-Office: Khattsusna (5270), Police_Station: Hakimpur & District: Dinajpur.", // Address line one
+                null, // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a valid address line two,
+     * which is optional and empty, and should not throw any exception
+     */
+    @Test
+    public void testAddressLineTwoValidCanBeEmpty(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Village: Khattausna, Post-Office: Khattsusna (5270), Police_Station: Hakimpur & District: Dinajpur.", // Address line one
+                "", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a valid city name,
+     * which is within size limit and has no invalid character, and should not throw any exception
+     */
+    @Test
+    public void testValidCityHasAllValidCharacterAndValidLength(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address line one", // Address line one
+                "Address line two (Optional)", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a valid country name,
+     * which is within size limit and has no invalid character, and should not throw any exception
+     */
+    @Test
+    public void testValidCountryName(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password geos here",
+                "Nurujjaman", // User First Name
+                "Pollob", // User Last Name
+                "Address line one", // Address line one
+                "Address line two (Optional)", // Address line two (Optional)
+                "Dinajpur", // User city
+                "Bangladesh", // User country
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    //TODO: Need to write test for password and recovery question field!
 
 
 }

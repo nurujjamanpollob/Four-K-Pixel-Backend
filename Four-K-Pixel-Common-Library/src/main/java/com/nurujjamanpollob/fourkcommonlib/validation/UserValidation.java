@@ -122,6 +122,8 @@ public record UserValidation(User userToValidate) {
 
 
 
+
+
     }
 
     /**
@@ -322,7 +324,7 @@ public record UserValidation(User userToValidate) {
     private void checkAddress(String address) throws InvalidUserException {
 
         //Create address Pattern
-        Pattern addressPattern = Pattern.compile("^[A-Za-z\s\\d-_,.()&]*$");
+        Pattern addressPattern = Pattern.compile("^[A-Za-z\s\\d-_,.():&]*$");
         Matcher matcher = addressPattern.matcher(address);
 
         // Contains invalid character
@@ -343,9 +345,14 @@ public record UserValidation(User userToValidate) {
      */
     private void validateUserCountryName() throws InvalidUserException{
 
+        String country = userToValidate.getUserCountryName();
+
+        if(country == null || country.length() < 2 || country.length() > 50){
+            throw new InvalidUserException("The country name or code length is too short or too long!");
+        }
         // Create country name matching pattern
         Pattern countryNamePattern = Pattern.compile("^[A-Za-z]*$");
-        Matcher matcher = countryNamePattern.matcher(userToValidate.getUserCountryName());
+        Matcher matcher = countryNamePattern.matcher(country);
 
         // Country name/code has invalid character
         if(!matcher.matches()){
