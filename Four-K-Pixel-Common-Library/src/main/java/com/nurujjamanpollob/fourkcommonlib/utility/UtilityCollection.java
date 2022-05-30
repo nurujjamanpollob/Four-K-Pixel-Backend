@@ -76,7 +76,7 @@ public class UtilityCollection {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Suppress default constructor
+     * @apiNote Suppress default constructor
      */
     private UtilityCollection() {
     }
@@ -85,7 +85,7 @@ public class UtilityCollection {
      * @param password the password to check
      * @return true if its encoded, else false.
      * @author Nurujjaman Pollob 2022
-     * Method to check if a String is encoded by {@link org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder}
+     * @apiNote Method to check if a String is encoded by {@link org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder}
      * @see org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder for more information.
      */
     public static boolean isPasswordEncodedWithBcryptPasswordEncryptor(String password) {
@@ -102,7 +102,7 @@ public class UtilityCollection {
      * @param inputString the String that needs to be converted
      * @return {@link java.math.BigInteger}
      * @author Nurujjaman Pollob 2022
-     * Converts {@link java.lang.String} to {@link java.math.BigInteger}
+     * @apiNote Converts {@link java.lang.String} to {@link java.math.BigInteger}
      * This algorithm works in simple way, get each character from Input String,
      * Then, get ASCII value(0-127) for this character,
      * and then, store in {@link java.lang.StringBuilder} collection,
@@ -125,7 +125,7 @@ public class UtilityCollection {
      * @return {@link Month}
      * @throws DateTimeException if the Integer parameter is not between 1 - 12
      * @author Nurujjaman Pollob 2022
-     * This method used to return a {@link Month} instance
+     * @apiNote This method used to return a {@link Month} instance
      * The integer range should be between 1 -12
      */
     public static Month getMonthInstanceFromInteger(Integer month) throws DateTimeException {

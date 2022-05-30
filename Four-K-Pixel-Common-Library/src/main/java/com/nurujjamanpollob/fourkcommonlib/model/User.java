@@ -103,7 +103,7 @@ public class User {
 
     /**
      * @author Nurujjaman Pollob
-     * Constructor parameter to create a user and save in No-SQL database
+     * @apiNote Constructor parameter to create a user and save in No-SQL database
      */
     @SuppressWarnings({"unused"})
     public User(
@@ -127,7 +127,7 @@ public class User {
             Boolean isPremium,
             Boolean isTwoFactorEnabled,
             Boolean isUserActive
-            ) throws InvalidUserException {
+            ){
 
         this.userName = userName;
         this.password = password;
@@ -159,8 +159,70 @@ public class User {
          */
        this.userId = UtilityCollection.stringToBigIntegerConverter(userName).intValue();
 
-       // Validate automatically
-        new UserValidation(this).validateUser();
+    }
+
+    /**
+     * @author Nurujjaman Pollob
+     * @apiNote Constructor parameter to create a user and save in No-SQL database with automatic validation
+     */
+    @SuppressWarnings({"unused"})
+    public User(
+            String userName,
+            String password,
+            String firstName,
+            String lastName,
+            String addressLineOne,
+            String addressLineTwo,
+            String city,
+            String country,
+            String userShortDescription,
+            String userBio,
+            String hobby,
+            Integer userId,
+            Integer birthYear,
+            Integer birthMonth,
+            Integer birthDay,
+            Integer userCreationTime,
+            Boolean isBusiness,
+            Boolean isPremium,
+            Boolean isTwoFactorEnabled,
+            Boolean isUserActive,
+            Boolean isUsePreValidation
+    ) throws InvalidUserException {
+
+        this.userName = userName;
+        this.password = password;
+        this.userFirstName = firstName;
+        this.userLastname = lastName;
+        this.userAddressLineOne = addressLineOne;
+        this.userAddressLineTwo = addressLineTwo;
+        this.userCityName = city;
+        this.userCountryName = country;
+        this.userShortDescription = userShortDescription;
+        this.userBio = userBio;
+        this.userHobby = hobby;
+        this.userBirthDay = birthDay;
+        this.userBirthMonth = birthMonth;
+        this.userBirthYear = birthYear;
+        this.userCreationTime = userCreationTime;
+        this.isBusiness = isBusiness;
+        this.isPremium = isPremium;
+        this.isTwoFactorEnabled = isTwoFactorEnabled;
+        this.isUserActive = isUserActive;
+        /*
+        MongoBd do not generate automatic ID,
+        so our objective is to convert username to Big Integer,
+        and get its Integer Value
+        So that it will be able to save a lot of database operations, increment and insertion,
+        which is not optimal for performance.
+
+        Using UTC time Integer conversion may lead to duplicated ID, if user creating at the same time.
+         */
+        this.userId = UtilityCollection.stringToBigIntegerConverter(userName).intValue();
+
+        if(isUsePreValidation){
+            new UserValidation(this).validateUser();
+        }
 
     }
 }

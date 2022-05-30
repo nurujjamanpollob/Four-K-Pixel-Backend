@@ -74,7 +74,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Test method to test a username, which is valid to use
+     * @apiNote Test method to test a username, which is valid to use
      * And should not throw any exception
      */
     @Test()
@@ -107,7 +107,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Test method to test a username, which should throw {@link InvalidUserException} because it has capital latter
+     * @apiNote Test method to test a username, which should throw {@link InvalidUserException} because it has capital latter
      */
     @Test
     public void testUsernameInvalidBecauseItHasCapitalLatter() {
@@ -139,7 +139,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob
-     * Test method to test a username, which should throw {@link InvalidUserException} because it has special character
+     * @apiNote Test method to test a username, which should throw {@link InvalidUserException} because it has special character
      */
     @Test
     public void testUsernameInvalidBecauseItHasSpecialCharacter() {
@@ -171,7 +171,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob
-     * Test method to test a username, which should throw {@link InvalidUserException} because username length is short
+     * @apiNote Test method to test a username, which should throw {@link InvalidUserException} because username length is short
      */
     @Test
     public void TestUsernameInvalidBecauseItsLengthIsShort() {
@@ -203,7 +203,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Test method to test a username, which should throw {@link InvalidUserException} because username length is long
+     * @apiNote Test method to test a username, which should throw {@link InvalidUserException} because username length is long
      */
     @Test
     public void testUsernameInvalidBecauseItsLengthIsLong() {
@@ -234,7 +234,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Test method to test a user age,
+     * @apiNote Test method to test a user age,
      * this test should not throw any exception
      * because the user age is more than thirteen year.
      */
@@ -267,7 +267,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * Test method to test a user age,
+     * @apiNote Test method to test a user age,
      * this test should throw {@link InvalidUserException}
      * because the user age is younger than thirteen year
      */
@@ -301,7 +301,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * This test method used to validate User First and Last name,
+     * @apiNote This test method used to validate User First and Last name,
      * and it should throw {@link InvalidUserException} because user first name and last name is null
      */
     @Test
@@ -334,7 +334,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * This test method used to validate User First and Last name,
+     * @apiNote This test method used to validate User First and Last name,
      * and it should throw {@link InvalidUserException} because user first name has special character
      */
     @Test
@@ -368,7 +368,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * This test method used to validate User First and Last name,
+     * @apiNote This test method used to validate User First and Last name,
      * and it should throw {@link InvalidUserException} because user first name length is short
      */
     @Test
@@ -403,7 +403,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * This test method used to validate User First and Last name,
+     * @apiNote This test method used to validate User First and Last name,
      * and it should throw {@link InvalidUserException} because user last name has a numeric character
      */
     @Test
@@ -437,7 +437,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * This test method used to validate User First and Last name,
+     * @apiNote This test method used to validate User First and Last name,
      * and it should throw {@link InvalidUserException} because user first name is too long
      */
     @Test
@@ -471,7 +471,7 @@ public class UserValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * This test method used to validate User First and Last name,
+     * @apiNote This test method used to validate User First and Last name,
      * and it should not throw any exception, as the naming conversion is apprear to be valid
      */
     @Test
