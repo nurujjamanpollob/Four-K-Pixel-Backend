@@ -969,7 +969,72 @@ public class UserValidationTest {
 
     }
 
-    //TODO: Need to write test for password, user bio, hobby, short description and recovery question field!
+    //TODO: Need to write test for user bio, hobby, short description and recovery question field!
 
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a password, that contains a new character
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidatePasswordInvalidBecauseItHasNewLineCharacter(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here \n", // Password here
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a password, that is too short
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidatePasswordInvalidBecauseItsTooShort(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "pswd", // Password here
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
 
 }
