@@ -66,6 +66,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -393,7 +394,13 @@ public record UserValidation(User userToValidate) {
      */
     private void validateUserHobby() throws InvalidUserException{
 
-        validateUserBioAndDetails(userToValidate.getUserHobby(), 3, 150);
+        String hobby = userToValidate.getUserHobby(); // Optional Field
+
+        // Allows not null and empty Strings
+        if(hobby != null && hobby.length() != 0) {
+
+            validateUserBioAndDetails(hobby, 3, 150);
+        }
     }
 
     /**

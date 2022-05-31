@@ -72,6 +72,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class UserValidationTest {
 
+    //TODO: A code review is requires in this class
+
     /**
      * @author Nurujjaman Pollob 2022
      * @apiNote Test method to test a username, which is valid to use
@@ -969,8 +971,6 @@ public class UserValidationTest {
 
     }
 
-    //TODO: Need to write test for user bio, hobby, short description and recovery question field!
-
     /**
      * @author Nurujjaman Pollob 2022
      * @apiNote Test method to validate a password, that contains a new character
@@ -1025,6 +1025,722 @@ public class UserValidationTest {
                 "User Bio",
                 "User hobby goes here",
                 "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a password, that is null
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidatePasswordInvalidBecauseItsNull(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                null, // Password here
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a password, that is too long
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidatePasswordInvalidBecauseItsTooLong(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "pswdgdhfgdhsgfhdsgfhdjsgfhdsjgfjdsfgdshjfgdjsffghdgdfhgdfhgdfhghdsgfdshfgdshdhfdsgfdhsfgdhfgdshfgdsfhdgsfdfgdshfgdfhgdshfgdshfgds", // Password here
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a password, which is seems good
+     * and should not throw any exception
+     */
+    @Test
+    public void testValidatePasswordIsGood(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "#$PsWrDDJK126867^%$#*()/?~`", // Password here
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validates recovery question, which is invalid because it contains new line character
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidateRecoveryQuestionInvalidBecauseItHasNewLineCharacter(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes here \n", // Recovery question
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validates recovery question, which is invalid because it's too short
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidateRecoveryQuestionInvalidBecauseItsTooShort(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "rq", // Recovery question
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validates recovery question, which is invalid because it's null
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidateRecoveryQuestionInvalidBecauseItsNull(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                null, // Recovery question
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validates recovery question, which is invalid because it's too long
+     * should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testValidateRecoveryQuestionInvalidBecauseItsTooLong(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "rqkhdhdhdhdhfhfhfhruyerhfdhdfydfydydydgfdhfghfyffyfyfyf" +
+                        "yfgfehfgfgfhfdhyfdhdyfgysdgfhsdgfhjdsgfhjsdgfhjdsgfhjdsfgdshfgdshfgdsh" +
+                        "fgsdhfgdshfgshdfgdshfgdshfgdshfgdshfgdshfxcvdsfhdsgfhdsgfdshfgdshfghdsfgdshfdsgf" +
+                        "dvsdfgsfhdsgfhdsgfhdsgfhdsfgdhsfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdsfhdsgfhdsgfd", // Recovery question
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validates recovery question, which is simply valid
+     * should not throw any question
+     */
+    @Test
+    public void testValidateRecoveryQuestionValid(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description",
+                "User Bio",
+                "User hobby goes here",
+                "Hey, you know my name? Its Nurujjaman Pollob.", // Recovery question
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a user short description, which is simply small then approved limit
+     * and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserShortDescriptionInvalidBecauseItsTooShort(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "min char", // User short description goes here
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a user short description, which is null
+     * and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserShortDescriptionInvalidBecauseItsNull(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                null, // User short description goes here
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Test method to validate a user short description, which is very tall then approved limit
+     * and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserShortDescriptionInvalidBecauseItsTall(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "fdgsghdfhsfgshfghsfggdshfgdhsfghsdfgdshfgdshfgdshfgdshfdsghfds" +
+                        "dfdsfgdshfghdsfgdhsfghdsfgdshfgdshfghdsfgdshfgdshfgdshfgdshfgdshfgdshfgdhsf" +
+                        "dfdsfghdsgfhdsgfdsfgdsfgdshfgsdhfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshf" +
+                        "dfvdsgfhgdsfhgdsfdsfdshfgdshfgsdhfgsdhfgdshfgdshfgdshfgdshfgdshfgdshfdsgfhdsgfhdsgf" +
+                        "fdhdsfghdsfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdsh" +
+                        "gfhdsgfhdsgfdshfdhsfgdshfgdshfgdshfdsghfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdshfgdhsf" +
+                        "fdhgfdshgfhdsfgdhsfgdhsgfdshfgdshfgdshfgdshfgdshfgdshfgdhsfgdfhgdshfgdshfgdshfgdshfgdshfhghfg", // User short description goes here
+                "User Bio",
+                "User hobby goes here",
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validates short description, and this should not throw any exception
+     */
+    @Test
+    public void testUserShortDescriptionValid(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "" +
+                        "Hey,\n" +
+                        "It's me Nurujjaman Pollob. I'm a student and a noob programmer.\n" +
+                        "Glad to see you here 😙❤!️", // User short description
+                "User Bio",
+                "User hobby goes here",
+                "Recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user bio, which is null and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserBioInvalidBecauseItsNull(){
+
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                null, // User bio
+                "User hobby goes here",
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user bio, which is small compare to size limit
+     * and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserBioInvalidBecauseItsShort(){
+
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                "M", // User bio
+                "User hobby goes here",
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user bio, which is large compare to size limit
+     * and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserBioInvalidBecauseItsLong(){
+
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "gdhfgdhfgdshfgdsjfgdshjfgdsjhgfdsgfhdsjfgdsfgdjgdggdshfgdshfdshgfh" +
+                        "gfdhdghdghdghdgfdffgdshfgdshfgdshfgdshgdshgdshgdshfgdsfhdsfhdsfgdshdgshffgdhsfg",
+                "M", // User bio
+                "User hobby goes here",
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user bio, which is normal, not null, within size limit 2 -150 character
+     * So, it should not throw any exception.
+     */
+    @Test
+    public void testUserBioIsValid(){
+
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                "Hey, welcome to my profile! Have some coffee😇", // User bio
+                "User hobby goes here",
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user hobby,
+     * which is invalid because it can't meet minimum character limit
+     * and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserHobbyIsInvalidBecauseHobbyLengthIsTooShort(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                "Hey, welcome to my profile! Have some coffee😇",
+                "HB", // User Hobby goes here
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user hobby,
+     * which is invalid because it exceeds maximum character limit
+     * and should throw {@link InvalidUserException}
+     */
+    @Test
+    public void testUserHobbyIsInvalidBecauseHobbyLengthIsTooLong(){
+
+        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                "Hey, welcome to my profile! Have some coffee😇",
+                "HB,ghsadghsagdhasgdsahdg,asdhasdhasdasdgashdgahsgdash,dgadgahsdgashdgashdgashd," +
+                        "dshhgdasdhasgd,dsdghasgdhsadgashdgashdg,asdhasdgashdashdashdgsa,asdhsdhshdsahdg", // User Hobby goes here
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user hobby,
+     * which is valid, and can be nullable, because this field is optional,
+     * and should not throw any exception
+     */
+    @Test
+    public void testUserHobbyIsValidItCanBeNullable(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                "Hey, welcome to my profile! Have some coffee😇",
+                null, // User Hobby goes here
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user hobby,
+     * which is valid, and can be nullable, because this field is optional,
+     * and should not throw any exception
+     */
+    @Test
+    public void testUserHobbyIsValidItCanBeEmpty(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                "Hey, welcome to my profile! Have some coffee😇",
+                "", // User Hobby goes here
+                "recovery question goes here",
+                1998,
+                12,
+                7,
+                11111,
+                false,
+                true,
+                false,
+                true
+        )).validateUser());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This test method validate user hobby,
+     * which is valid, has content within size limit
+     * and should not throw any exception
+     */
+    @Test
+    public void testUserHobbyIsValid(){
+
+        assertDoesNotThrow(()-> new UserValidation(new User(
+                "nurujjamanpollob",
+                "password goes here",
+                "Nurujjaman",
+                "Pollob",
+                "Address line one",
+                "Address line two (Optional)",
+                "Dinajpur",
+                "Bangladesh",
+                "User short description goes here.",
+                "Hey, welcome to my profile! Have some coffee😇",
+                "Coding, Solving Math Problem, Gardening, Riding boat", // User Hobby goes here
+                "recovery question goes here",
                 1998,
                 12,
                 7,
