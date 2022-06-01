@@ -60,8 +60,9 @@
 package com.nurujjamanpollob.fourkcommonlib.exception;
 
 /**
- * Class that used to throw a custom exception,
+ * @apiNote Class that used to throw a custom exception,
  * while saving, query or update a {@link com.nurujjamanpollob.fourkcommonlib.model.User} instance in the database,
+ * or while validate a {@link com.nurujjamanpollob.fourkcommonlib.model.User} object, or
  * If there is something wrong.
  */
 public class InvalidUserException extends Exception {
