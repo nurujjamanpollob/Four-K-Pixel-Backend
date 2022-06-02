@@ -59,6 +59,7 @@
 
 package com.nurujjamanpollob.fourkcommonlib.utility;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.time.DateTimeException;
 import java.time.Month;
@@ -120,7 +121,7 @@ public class UtilityCollection {
     }
 
     /**
-     * @author Nurujjaman Pollob
+     * @author Nurujjaman Pollob 2022
      * @param month the number as month
      * @return {@link Month}
      * @throws DateTimeException if the Integer parameter is not between 1 - 12
@@ -148,5 +149,50 @@ public class UtilityCollection {
                         : month == 11 ? Month.NOVEMBER
                         : Month.DECEMBER;
 
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to get a file length, from given path
+     * @param filePath the file absolute path
+     * @return -1 if file is not found, else file length in bytes is returned.
+     */
+    public static long checkAndGetFileLength(String filePath){
+
+        File file = new File(filePath);
+
+        if(file.exists()){
+
+            return file.length();
+        }
+
+        return -1;
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method used to delete an array of file from disk
+     * @param filePaths the file absolute paths to delete a file from disk
+     * @return true if all file is deleted successfully, false can be returned for a mixed of successful and unsuccessful deletion.
+     * bit its guaranteed that, least one file deletion is unsuccessful.
+     */
+    public static boolean deleteFiles(String[] filePaths){
+
+        boolean deletedAll = true;
+
+        for(String filePath : filePaths){
+            File file = new File(filePath);
+
+            if(file.exists()){
+
+                if(!file.delete()){
+
+                    deletedAll = false;
+                }
+            }
+        }
+
+        return deletedAll;
     }
 }
