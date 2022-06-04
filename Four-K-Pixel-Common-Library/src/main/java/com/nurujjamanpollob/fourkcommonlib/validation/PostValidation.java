@@ -159,7 +159,7 @@ public record PostValidation(Post postToValidate) {
 
                // Delete all uploaded file from the server
                UtilityCollection.deleteFiles(attachmentsPath);
-               throw new InvalidPostException("it seems this file is not an image file, or the file is empty or the image length is more than 15MB");
+               throw new InvalidPostException("It seems this file is not an image file, or the file is empty or the image length is more than 15MB");
            }
         }
     }

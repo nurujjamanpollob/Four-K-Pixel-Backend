@@ -64,9 +64,7 @@ import com.nurujjamanpollob.fourkcommonlib.model.Post;
 import com.nurujjamanpollob.fourkcommonlib.validation.PostValidation;
 import org.junit.jupiter.api.Test;
 
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class to test {@link com.nurujjamanpollob.fourkcommonlib.validation.PostValidation} class's validation process
@@ -417,6 +415,54 @@ public class PostValidationTest {
         assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
 
     }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method used to validate Post attachments, which is a set of image files directories,
+     * should throw exception because the image file <pre><code>Four-K-Pixel-Common-Library>testfiles>image>test-image-large.dng</code></pre>
+     */
+    @Test
+    public void testPostAttachmentImageIsTooLargeShouldThrowException(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
+                new String[]{"testfiles/image/test-image-large.dng"}, // Post attachment(Image) paths should place here
+                "#Image #Validating #LargeImageShouldThrowException",
+                System.currentTimeMillis());
+
+
+        // Validate throw message
+        assertTrue(assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost()).getMessage().contains("It seems this file is not an image file, or the file is empty or the image length is more than 15MB"));
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method used to validate Post attachments, which is a set of image files directories,
+     * should throw exception because the file <pre><code>Four-K-Pixel-Common-Library>testfiles>image>test-image-large.dng</code></pre>
+     */
+    @Test
+    public void testPostAttachmentImageIsInvalidShouldThrowException(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
+                new String[]{"testfiles/image/test-image-large.dng"}, // Post attachment(Image) paths should place here
+                "#Image #Validating #LargeImageShouldThrowException",
+                System.currentTimeMillis());
+
+
+        // Validate throw message
+        assertTrue(assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost()).getMessage().contains("It seems this file is not an image file, or the file is empty or the image length is more than 15MB"));
+
+    }
+
+
+
 
 
 
