@@ -61,8 +61,10 @@ package com.nurujjamanpollob.fourkcommonlib.utility;
 
 import java.io.File;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.Month;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.*;
@@ -194,5 +196,48 @@ public class UtilityCollection {
         }
 
         return deletedAll;
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to convert a <a href="https://en.wikipedia.org/wiki/Unix_time">Unix Time</a> to a human-readable format.
+     * Time from calls like {@link System#currentTimeMillis()} should be formatted to a human-readable format with this method.
+     * This method represent output date in following format:
+     * <pre>
+     *     <code>2022-06-04 at 11:47:33 UTC</code>
+     * </pre>
+     *
+     * If you need to customize the output, or use other formatter instance,
+     * use this method {@link UtilityCollection#unixEpochTimeToHumanReadableTimeConverter(Long, SimpleDateFormat)}.
+     * @param unixTimeEpoch the unix time long to format as human-readable String.
+     * @return Human-readable Unix Epoch time in <pre><code>yyyy-MM-dd 'at' HH:mm:ss z</code></pre> format.
+     */
+    public static String unixEpochTimeToHumanReadableTimeConverter(Long unixTimeEpoch){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(unixTimeEpoch);
+
+        return formatter.format(date);
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to convert a <a href="https://en.wikipedia.org/wiki/Unix_time">Unix Time</a> to a human-readable format.
+     * Time from calls like {@link System#currentTimeMillis()} should be formatted to a human-readable format with this method.
+     *
+     * The time will be formatted according to simpleDateFormat instance.
+     * If you use this following format: <pre><code>yyyy-MM-dd 'at' HH:mm:ss z</code></pre> to format time,
+     * then use this method {@link UtilityCollection#unixEpochTimeToHumanReadableTimeConverter(Long)}.
+     * @param unixTimeEpoch the unix time long to format as human-readable String.
+     * @param simpleDateFormat the {@link SimpleDateFormat} to format the unix time to a human-readable format.
+     * @return Human-readable Unix Epoch time in your preferred {@link SimpleDateFormat}
+     */
+    public static String unixEpochTimeToHumanReadableTimeConverter(Long unixTimeEpoch, SimpleDateFormat simpleDateFormat){
+
+        Date date = new Date(unixTimeEpoch);
+        return simpleDateFormat.format(date);
+
     }
 }

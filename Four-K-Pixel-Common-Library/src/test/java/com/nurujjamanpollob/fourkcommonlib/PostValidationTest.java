@@ -90,7 +90,8 @@ public class PostValidationTest {
                 null, // Post title goes here
                 "Post description",
                 new String[]{"testfiles/image/1.png"},
-                "Testing, Image, Validating");
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
 
         assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
     }
@@ -109,7 +110,8 @@ public class PostValidationTest {
                 "", // Post title goes here
                 "Post description",
                 new String[]{"testfiles/image/1.png"},
-                "Testing, Image, Validating");
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
 
         assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
     }
@@ -128,7 +130,8 @@ public class PostValidationTest {
                         "dsfgdhfgdshfgdshfgdsddsfgdhsfghfgdshfgdhfdgfhdsgfhfgdshfgddhsgfgdhfgdsh", // Post title goes here
                 "Post description",
                 new String[]{"testfiles/image/1.png"},
-                "Testing, Image, Validating");
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
 
         assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
     }
@@ -147,7 +150,8 @@ public class PostValidationTest {
                 "Nature and beauty, watch my shot, and follow me!", // Post title goes here
                 "Post description",
                 new String[]{"testfiles/image/1.png"},
-                "Testing, Image, Validating");
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
 
         assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
     }
@@ -163,8 +167,8 @@ public class PostValidationTest {
 
         userPost = new Post(
                 "nurujjamanpollob",
-                "Nature and beauty, watch my shot, and follow me!", // Post title goes here
-                "Post description test should be exceed 5000 characters." +
+                "Nature and beauty, watch my shot, and follow me!",
+                "Post description test should be exceed 5000 characters." + // Post description goes here
                         "Post description test should be exceed 5000 characters." +
                         "Post description test should be exceed 5000 characters." +
                         "Post description test should be exceed 5000 characters." +
@@ -257,7 +261,96 @@ public class PostValidationTest {
                         "Post description test should be exceed 5000 characters." +
                         "Post description test should be exceed 5000 characters.",
                 new String[]{"testfiles/image/1.png"},
-                "Testing, Image, Validating");
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
+
+        assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to validate post description, which is optional and nullable and
+     * should not throw any exception.
+     */
+    @Test
+    public void testPostDescriptionValidCanBeNullable(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                null, // Post description
+                new String[]{"testfiles/image/1.png"},
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
+
+        assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to validate post description, which is optional and empty and
+     * should not throw any exception.
+     */
+    @Test
+    public void testPostDescriptionValidCanBeEmpty(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "", // Post description
+                new String[]{"testfiles/image/1.png"},
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
+
+        assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to validate post description, which is optional, and it's length is under 5000 character
+     * should not throw any exception.
+     */
+    @Test
+    public void testPostDescriptionValid(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.", // post description goes here
+                new String[]{"testfiles/image/1.png"},
+                "Testing, Image, Validating",
+                System.currentTimeMillis());
+
+        assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to validate post tag, which is larger than 250 character, treated as long tag.
+     */
+    @Test
+    public void testPostTagInvalidBecauseItsLarge(){
+
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
+                new String[]{"testfiles/image/1.png"},
+                "The post tag is more than 250 character" +
+                        "The post tag is more than 250 character" +
+                        "The post tag is more than 250 character" +
+                        "The post tag is more than 250 character" +
+                        "The post tag is more than 250 character" +
+                        "The post tag is more than 250 character" +
+                        "The post tag is more than 250 character",
+                System.currentTimeMillis()); // Post tags goes here
 
         assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
 

@@ -77,6 +77,7 @@ public class Post {
     private String postDescription;
     private String[] imageFilesLocation;
     private String postTags;
+    private Long postCreationTime;
 
 
 }
