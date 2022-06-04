@@ -64,7 +64,6 @@ import com.nurujjamanpollob.fourkcommonlib.model.Post;
 import com.nurujjamanpollob.fourkcommonlib.validation.PostValidation;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -332,7 +331,8 @@ public class PostValidationTest {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * @apiNote Method to validate post tag, which is larger than 250 character, treated as long tag.
+     * @apiNote Method to validate post tag, which is larger than 250 character,
+     * should throw {@link InvalidPostException}
      */
     @Test
     public void testPostTagInvalidBecauseItsLarge(){
@@ -343,18 +343,82 @@ public class PostValidationTest {
                 "Nature and beauty, watch my shot, and follow me!",
                 "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
                 new String[]{"testfiles/image/1.png"},
-                "The post tag is more than 250 character" +
+                "The post tag is more than 250 character" + // Post tags goes here
                         "The post tag is more than 250 character" +
                         "The post tag is more than 250 character" +
                         "The post tag is more than 250 character" +
                         "The post tag is more than 250 character" +
                         "The post tag is more than 250 character" +
                         "The post tag is more than 250 character",
-                System.currentTimeMillis()); // Post tags goes here
+                System.currentTimeMillis());
 
         assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
 
     }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to validate post tag, which is doesn't exceed 250-character limit.
+     * And doesn't throw any exception
+     */
+    @Test
+    public void testPostTagValid(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
+                new String[]{"testfiles/image/1.png"},
+                "#Abstract #Dhaka #DistanceShotChallange ", // Post tags goes here
+                System.currentTimeMillis());
+
+        assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
+
+    }
+
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to validate post tag, which is optional, can be nullable
+     * And doesn't throw any exception
+     */
+    @Test
+    public void testPostTagValidCanBeNullable(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
+                new String[]{"testfiles/image/1.png"},
+                null, // Post tags goes here
+                System.currentTimeMillis());
+
+        assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to validate post tag, which is optional, can be empty
+     * And doesn't throw any exception
+     */
+    @Test
+    public void testPostTagValidCanBeEmpty(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
+                new String[]{"testfiles/image/1.png"},
+                "", // Post tags goes here
+                System.currentTimeMillis());
+
+        assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
+
+    }
+
+
 
 
 }

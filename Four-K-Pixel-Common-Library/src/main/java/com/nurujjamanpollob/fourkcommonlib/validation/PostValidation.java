@@ -182,10 +182,8 @@ public record PostValidation(Post postToValidate) {
         if(fileLength != -1 && fileLength <= Variables.UPLOAD_FILE_MAX_SIZE){
 
             try {
-              String mimeType =  Files.probeContentType(Path.of(filePath));
-
               // Is mime type image?
-              return mimeType.contains("image");
+              return UtilityCollection.fileMimeTypeFromPath(filePath).contains("image");
             } catch (IOException e) {
                 return false;
             }

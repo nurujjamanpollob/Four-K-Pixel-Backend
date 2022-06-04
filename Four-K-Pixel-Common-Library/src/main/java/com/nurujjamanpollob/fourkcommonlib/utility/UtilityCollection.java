@@ -60,7 +60,10 @@
 package com.nurujjamanpollob.fourkcommonlib.utility;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.Month;
@@ -179,6 +182,7 @@ public class UtilityCollection {
      * @return true if all file is deleted successfully, false can be returned for a mixed of successful and unsuccessful deletion.
      * bit its guaranteed that, least one file deletion is unsuccessful.
      */
+    @SuppressWarnings({"UnusedReturnValue"})
     public static boolean deleteFiles(String[] filePaths){
 
         boolean deletedAll = true;
@@ -239,5 +243,43 @@ public class UtilityCollection {
         Date date = new Date(unixTimeEpoch);
         return simpleDateFormat.format(date);
 
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method returns file mime type from {@link Files#probeContentType(Path)}, here is excerpt from this method:
+     * <pre>
+     *     <code>
+     *
+     *     {@link Files#probeContentType(Path)} Probes the content type of a file.
+     *     This method uses the installed {@link java.nio.file.spi.FileTypeDetector}
+     *     implementations to probe the given file to determine its content type. Each file type detector's {@link Files#probeContentType(Path)}}
+     *     is invoked, in turn, to probe the file type.
+     *     If the file is recognized then the content type is returned.
+     *     If the file is not recognized by any of the installed file type detectors then a system-default file type detector is invoked to guess the content type.
+     *     A given invocation of the Java virtual machine maintains a system-wide list of file type detectors.
+     *     Installed file type detectors are loaded using the service-provider loading facility defined by the {@link java.util.ServiceLoader} class.
+     *
+     *     Installed file type detectors are loaded using the system class loader.
+     *     If the system class loader cannot be found then the platform class loader is used.
+     *     File type detectors are typically installed by placing them in a JAR file on the application class path,
+     *     the JAR file contains a provider-configuration file named java.nio.file.spi.FileTypeDetector in the resource directory META-INF/services,
+     *     and the file lists one or more fully-qualified names of concrete subclass of FileTypeDetector that have a zero argument constructor.
+     *     If the process of locating or instantiating the installed file type detectors fails then an unspecified error is thrown.
+     *     The ordering that installed providers are located is implementation specific.
+     *     The return value of this method is the string form of the value of a Multipurpose Internet Mail Extension (MIME) content type as defined by <a href="https://www.ietf.org/rfc/rfc2045.txt">RFC 2045: Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies.</a>
+     *
+     *     The string is guaranteed to be parsable according to the grammar in the RFC.
+     *
+     *     </code>
+     * </pre>
+     *
+     * @param filePath the file absolute path, to find the file in a specific location and get its content type.
+     * @return The content type of the file, or null if the content type cannot be determined.
+     * @throws IOException If a disk IO exception is occurred.
+     */
+    public static String fileMimeTypeFromPath(String filePath) throws IOException {
+
+        return Files.probeContentType(Path.of(filePath));
     }
 }

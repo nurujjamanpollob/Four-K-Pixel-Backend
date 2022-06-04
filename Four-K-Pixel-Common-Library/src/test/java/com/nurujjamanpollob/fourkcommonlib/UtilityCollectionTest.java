@@ -63,6 +63,8 @@ import com.nurujjamanpollob.fourkcommonlib.utility.UtilityCollection;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -119,5 +121,17 @@ public class UtilityCollectionTest {
     @Test
     public void testStringToBigIntegerConvert(){
         assertTrue(UtilityCollection.stringToBigIntegerConverter("nurujjamanpollob").intValue() > 0);
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to test a dng image from disk, should contain this text <quote>image</quote> from {@link UtilityCollection#fileMimeTypeFromPath(String)} from returned String
+     * @throws IOException If a Disk IO exception is occurred.
+     */
+    @Test
+    public void testGetDngFileMimeType() throws IOException {
+
+       assertTrue(UtilityCollection.fileMimeTypeFromPath("testfiles/image/test-image-large.dng").contains("image"));
+
     }
 }
