@@ -435,14 +435,14 @@ public class PostValidationTest {
 
 
         // Validate throw message
-        assertTrue(assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost()).getMessage().contains("It seems this file is not an image file, or the file is empty or the image length is more than 15MB"));
+        assertTrue(assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost()).getMessage().contains("It seems this file is not an image file"));
 
     }
 
     /**
      * @author Nurujjaman Pollob 2022
      * @apiNote This method used to validate Post attachments, which is a set of image files directories,
-     * should throw exception because the file <pre><code>Four-K-Pixel-Common-Library>testfiles>image>test-image-large.dng</code></pre>
+     * should throw exception because the file <pre><code>Four-K-Pixel-Common-Library>testfiles>image>not-a-image-file.png</code></pre> is not a valid image file!
      */
     @Test
     public void testPostAttachmentImageIsInvalidShouldThrowException(){
@@ -451,13 +451,13 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
-                new String[]{"testfiles/image/test-image-large.dng"}, // Post attachment(Image) paths should place here
+                new String[]{"testfiles/image/not-a-image-file.png"}, // Post attachment(Image) paths should place here
                 "#Image #Validating #LargeImageShouldThrowException",
                 System.currentTimeMillis());
 
 
         // Validate throw message
-        assertTrue(assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost()).getMessage().contains("It seems this file is not an image file, or the file is empty or the image length is more than 15MB"));
+        assertTrue(assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost()).getMessage().contains("It seems this file is not an image file"));
 
     }
 

@@ -59,6 +59,8 @@
 
 package com.nurujjamanpollob.fourkcommonlib.utility;
 
+import net.sf.jmimemagic.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -69,6 +71,7 @@ import java.time.DateTimeException;
 import java.time.Month;
 import java.util.Date;
 import java.util.regex.Pattern;
+
 
 import static java.util.regex.Pattern.*;
 
@@ -278,8 +281,13 @@ public class UtilityCollection {
      * @return The content type of the file, or null if the content type cannot be determined.
      * @throws IOException If a disk IO exception is occurred.
      */
-    public static String fileMimeTypeFromPath(String filePath) throws IOException {
+    public static String fileMimeTypeFromPath(String filePath) throws IOException, MagicMatchNotFoundException, MagicException, MagicParseException {
 
-        return Files.probeContentType(Path.of(filePath));
+        File file = new File(filePath);
+
+        MagicMatch match = Magic.getMagicMatch(file, false);
+
+
+        return match.getMimeType();
     }
 }

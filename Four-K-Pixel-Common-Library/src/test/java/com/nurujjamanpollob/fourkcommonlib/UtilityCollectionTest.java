@@ -60,6 +60,9 @@
 package com.nurujjamanpollob.fourkcommonlib;
 
 import com.nurujjamanpollob.fourkcommonlib.utility.UtilityCollection;
+import net.sf.jmimemagic.MagicException;
+import net.sf.jmimemagic.MagicMatchNotFoundException;
+import net.sf.jmimemagic.MagicParseException;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -129,7 +132,7 @@ public class UtilityCollectionTest {
      * @throws IOException If a Disk IO exception is occurred.
      */
     @Test
-    public void testGetDngFileMimeType() throws IOException {
+    public void testGetDngFileMimeType() throws IOException, MagicMatchNotFoundException, MagicException, MagicParseException {
 
        assertTrue(UtilityCollection.fileMimeTypeFromPath("testfiles/image/test-image-large.dng").contains("image"));
 

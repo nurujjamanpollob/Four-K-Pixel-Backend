@@ -184,7 +184,7 @@ public record PostValidation(Post postToValidate) {
             try {
               // Is mime type image?
               return UtilityCollection.fileMimeTypeFromPath(filePath).contains("image");
-            } catch (IOException e) {
+            } catch (Exception e) {
                 return false;
             }
         }
