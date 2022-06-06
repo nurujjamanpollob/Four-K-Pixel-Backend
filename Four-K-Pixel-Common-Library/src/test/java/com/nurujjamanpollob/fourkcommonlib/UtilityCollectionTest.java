@@ -132,9 +132,22 @@ public class UtilityCollectionTest {
      * @throws IOException If a Disk IO exception is occurred.
      */
     @Test
-    public void testGetDngFileMimeType() throws IOException, MagicMatchNotFoundException, MagicException, MagicParseException {
+    public void testGetDngFileMimeType() throws IOException {
 
        assertTrue(UtilityCollection.fileMimeTypeFromPath("testfiles/image/test-image-large.dng").contains("image"));
 
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to extract correct file mime type, from a text file which is renamed to png, but it's actually a text file,
+     * should return text/plain
+     * @throws IOException there is not much information on this exception,
+     * basically, a disk io error or accessing file header exception can throw this exception.
+     */
+    @Test
+    public void testGetMimeTypeShouldContainTextFromAWrongExtension() throws IOException {
+
+        assertTrue(UtilityCollection.fileMimeTypeFromPath("testfiles/image/not-a-image-file.png").contains("text/plain"));
     }
 }

@@ -158,7 +158,7 @@ public record PostValidation(Post postToValidate) {
            if (!isFileIsValidImageAndSizeWithinMaxLimit(s)){
 
                // Delete all uploaded file from the server
-               UtilityCollection.deleteFiles(attachmentsPath);
+              // UtilityCollection.deleteFiles(attachmentsPath);
                throw new InvalidPostException("It seems this file is not an image file, or the file is empty or the image length is more than 15MB");
            }
         }

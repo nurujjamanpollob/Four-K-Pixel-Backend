@@ -86,7 +86,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 null, // Post title goes here
                 "Post description",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -106,7 +106,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "", // Post title goes here
                 "Post description",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -126,7 +126,7 @@ public class PostValidationTest {
                 "djhfjdshfjdshfdsjfhdsjfhdsjfhdsjfhdsjfhdsfjhdsfjhdsjfdhfjdhfjdshfjdshfdjshfdsjhf" +
                         "dsfgdhfgdshfgdshfgdsddsfgdhsfghfgdshfgdhfdgfhdsgfhfgdshfgddhsgfgdhfgdsh", // Post title goes here
                 "Post description",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -146,7 +146,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!", // Post title goes here
                 "Post description",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -257,7 +257,7 @@ public class PostValidationTest {
                         "Post description test should be exceed 5000 characters." +
                         "Post description test should be exceed 5000 characters." +
                         "Post description test should be exceed 5000 characters.",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -278,7 +278,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 null, // Post description
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -298,7 +298,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 "", // Post description
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -318,7 +318,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.", // post description goes here
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
@@ -340,7 +340,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "The post tag is more than 250 character" + // Post tags goes here
                         "The post tag is more than 250 character" +
                         "The post tag is more than 250 character" +
@@ -367,7 +367,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "#Abstract #Dhaka #DistanceShotChallange ", // Post tags goes here
                 System.currentTimeMillis());
 
@@ -388,7 +388,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 null, // Post tags goes here
                 System.currentTimeMillis());
 
@@ -408,7 +408,7 @@ public class PostValidationTest {
                 "nurujjamanpollob",
                 "Nature and beauty, watch my shot, and follow me!",
                 "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
-                new String[]{"testfiles/image/1.png"},
+                new String[]{"testfiles/image/test-normal-image.png"},
                 "", // Post tags goes here
                 System.currentTimeMillis());
 

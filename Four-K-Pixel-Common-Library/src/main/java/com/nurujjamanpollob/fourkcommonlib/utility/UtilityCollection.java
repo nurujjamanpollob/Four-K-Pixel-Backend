@@ -250,42 +250,24 @@ public class UtilityCollection {
 
     /**
      * @author Nurujjaman Pollob 2022
-     * @apiNote This method returns file mime type from {@link Files#probeContentType(Path)}, here is excerpt from this method:
-     * <pre>
-     *     <code>
-     *
-     *     {@link Files#probeContentType(Path)} Probes the content type of a file.
-     *     This method uses the installed {@link java.nio.file.spi.FileTypeDetector}
-     *     implementations to probe the given file to determine its content type. Each file type detector's {@link Files#probeContentType(Path)}}
-     *     is invoked, in turn, to probe the file type.
-     *     If the file is recognized then the content type is returned.
-     *     If the file is not recognized by any of the installed file type detectors then a system-default file type detector is invoked to guess the content type.
-     *     A given invocation of the Java virtual machine maintains a system-wide list of file type detectors.
-     *     Installed file type detectors are loaded using the service-provider loading facility defined by the {@link java.util.ServiceLoader} class.
-     *
-     *     Installed file type detectors are loaded using the system class loader.
-     *     If the system class loader cannot be found then the platform class loader is used.
-     *     File type detectors are typically installed by placing them in a JAR file on the application class path,
-     *     the JAR file contains a provider-configuration file named java.nio.file.spi.FileTypeDetector in the resource directory META-INF/services,
-     *     and the file lists one or more fully-qualified names of concrete subclass of FileTypeDetector that have a zero argument constructor.
-     *     If the process of locating or instantiating the installed file type detectors fails then an unspecified error is thrown.
-     *     The ordering that installed providers are located is implementation specific.
-     *     The return value of this method is the string form of the value of a Multipurpose Internet Mail Extension (MIME) content type as defined by <a href="https://www.ietf.org/rfc/rfc2045.txt">RFC 2045: Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies.</a>
-     *
-     *     The string is guaranteed to be parsable according to the grammar in the RFC.
-     *
-     *     </code>
-     * </pre>
+     * @apiNote This method returns file mime type from {@link Magic#getMagicMatch(File, boolean)},
+     * There are not much information regarding File Mime type reading process.
      *
      * @param filePath the file absolute path, to find the file in a specific location and get its content type.
      * @return The content type of the file, or null if the content type cannot be determined.
-     * @throws IOException If a disk IO exception is occurred.
+     * @throws IOException there is not much information on this exception,
+     * basically, a disk io error or accessing file header exception can throw this exception.
      */
-    public static String fileMimeTypeFromPath(String filePath) throws IOException, MagicMatchNotFoundException, MagicException, MagicParseException {
+    public static String fileMimeTypeFromPath(String filePath) throws IOException {
 
         File file = new File(filePath);
 
-        MagicMatch match = Magic.getMagicMatch(file, false);
+        MagicMatch match;
+        try {
+            match = Magic.getMagicMatch(file, false);
+        } catch (MagicParseException | MagicMatchNotFoundException | MagicException e) {
+            throw new IOException(e);
+        }
 
 
         return match.getMimeType();
