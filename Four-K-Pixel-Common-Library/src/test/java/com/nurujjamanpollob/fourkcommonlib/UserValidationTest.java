@@ -64,15 +64,12 @@ import com.nurujjamanpollob.fourkcommonlib.model.User;
 import com.nurujjamanpollob.fourkcommonlib.validation.UserValidation;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test Class to validate {@link com.nurujjamanpollob.fourkcommonlib.validation.UserValidation} functionality
  */
 public class UserValidationTest {
-
-    //TODO: A code review is requires in this class
 
     /**
      * @author Nurujjaman Pollob 2022
@@ -84,7 +81,7 @@ public class UserValidationTest {
 
 
         assertDoesNotThrow(() -> new UserValidation(new User(
-                "nurujjamanpollob",
+                "nurujjamanpollob", // Username goes here
                 "password geos here",
                 "Nurujjaman",
                 "Pollob",
@@ -115,8 +112,8 @@ public class UserValidationTest {
     public void testUsernameInvalidBecauseItHasCapitalLatter() {
 
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
-                "Nurujjamanpollob",
+    InvalidUserException invalidUserException =  assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+                "Nurujjamanpollob", // Username goes here
                 "password geos here",
                 "Nurujjaman",
                 "Pollob",
@@ -137,6 +134,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+    // Assert exception message
+    assertTrue(invalidUserException.getMessage().contains("The Username contains invalid character"));
     }
 
     /**
@@ -147,7 +147,7 @@ public class UserValidationTest {
     public void testUsernameInvalidBecauseItHasSpecialCharacter() {
 
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+      InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob$",
                 "password geos here",
                 "Nurujjaman",
@@ -169,6 +169,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+      // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The Username contains invalid character"));
     }
 
     /**
@@ -179,7 +182,7 @@ public class UserValidationTest {
     public void TestUsernameInvalidBecauseItsLengthIsShort() {
 
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "np",
                 "password geos here",
                 "Nurujjaman",
@@ -201,6 +204,10 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The username is too long or too short!"));
+
     }
 
     /**
@@ -210,7 +217,7 @@ public class UserValidationTest {
     @Test
     public void testUsernameInvalidBecauseItsLengthIsLong() {
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob01234567890",
                 "password geos here",
                 "Nurujjaman",
@@ -232,6 +239,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The username is too long or too short!"));
     }
 
     /**
@@ -277,7 +287,7 @@ public class UserValidationTest {
     public void testUserIsYounger() {
 
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
                 "Nurujjaman",
@@ -299,6 +309,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+       //Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The user is younger to use this website."));
     }
 
     /**
@@ -309,7 +322,7 @@ public class UserValidationTest {
     @Test
     public void testUserFirstLastNameIsInvalidBecauseOfNull() {
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
                 null, // User First Name
@@ -332,6 +345,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+       // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The Name can't be null or the name cant be shorter than 3 character or more than 16 characters"));
+
     }
 
     /**
@@ -342,7 +358,7 @@ public class UserValidationTest {
     @Test
     public void testUserFirstLastNameIsInvalidBecauseItHasInvalidSpecialCharacter() {
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
                 "Nurujjaman$", // User First Name
@@ -365,6 +381,10 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("User First name or last name is invalid"));
+
+
     }
 
 
@@ -377,7 +397,7 @@ public class UserValidationTest {
     public void testUserFirstLastNameIsInvalidBecauseItsLengthIsShort() {
 
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
                 "NP", // User First Name
@@ -400,6 +420,10 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The Name can't be null or the name cant be shorter than 3 character or more than 16 characters"));
+
+
     }
 
 
@@ -412,7 +436,7 @@ public class UserValidationTest {
     public void testUserFirstLastNameIsInvalidBecauseItHasNumericCharacter() {
 
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
                 "Nurujjaman", // User First Name
@@ -435,6 +459,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("User First name or last name is invalid"));
+
     }
 
     /**
@@ -445,7 +472,7 @@ public class UserValidationTest {
     @Test
     public void testUserFirstNameIsInvalidBecauseItsTooLong() {
 
-        assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, () -> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
                 "NurujjamanNurujjam", // User First Name
@@ -467,6 +494,10 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The Name can't be null or the name cant be shorter than 3 character or more than 16 characters"));
+
 
     }
 
@@ -511,7 +542,7 @@ public class UserValidationTest {
     @Test
     public void testAddressLineOneInvalidBecauseItHasContainsInvalidCharacter(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -535,6 +566,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+       // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The user address contains invalid character"));
+
     }
 
     /**
@@ -544,7 +578,7 @@ public class UserValidationTest {
     @Test
     public void testAddressLineOneInvalidBecauseItsShort(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -568,6 +602,10 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The user address may be null or the address length is too long or short"));
+
+
     }
 
     /**
@@ -577,7 +615,7 @@ public class UserValidationTest {
     @Test
     public void testAddressLineTwoInvalidBecauseItHasContainsInvalidCharacter(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -601,6 +639,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The user address contains invalid character"));
+
     }
 
     /**
@@ -611,14 +652,17 @@ public class UserValidationTest {
     @Test
     public void testAddressLineInvalidBecauseAddressLineOneIsTooLong(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
                 "Nurujjaman", // User First Name
                 "Pollob", // User Last Name
-                "Address Line One     123712896438726423786437246327864738264873264382746328746328746328746328746327846327846328746328746238746328764328746832423874" +
-                        "23646234873264732643724632746324763243624327643872463287463274863247632874636", // Address line one
+                "Address Line One     1237128964387264237864" +
+                        "37246327864738264873264382746328746328746328746328" +
+                        "746327846327846328746328746238746328764328746832423874" +
+                        "2364623487326473264372463274632476324362432764387246328" +
+                        "7463274863247632874636", // Address line one
                 "Address Line two", // Address line two (Optional)
                 "Dinajpur", // User city
                 "Bangladesh", // User country
@@ -636,6 +680,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The user address may be null or the address length is too long or short"));
+
     }
 
     /**
@@ -645,7 +692,7 @@ public class UserValidationTest {
     @Test
     public void testUserCityInvalidBecauseItHasContainsInvalidCharacter(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -669,6 +716,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The user address contains invalid character"));
+
     }
 
     /**
@@ -678,7 +728,7 @@ public class UserValidationTest {
     @Test
     public void testUserCountryInvalidBecauseItHasContainsInvalidCharacter(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -702,6 +752,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The user country name or code seems contains invalid character!"));
+
     }
 
 
@@ -712,7 +765,7 @@ public class UserValidationTest {
     @Test
     public void testUserCountryInvalidBecauseItsShort(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -736,6 +789,10 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The country name or code length is too short or too long!"));
+
+
     }
 
     /**
@@ -745,7 +802,7 @@ public class UserValidationTest {
     @Test
     public void testUserCountryInvalidBecauseItsNull(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -769,6 +826,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The country name or code length is too short or too long!"));
+
     }
 
     /**
@@ -778,7 +838,7 @@ public class UserValidationTest {
     @Test
     public void testUserCountryInvalidBecauseItsTooLong(){
 
-        assertThrows(InvalidUserException.class, ()-> new
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new
                 UserValidation(new User(
                 "nurujjamanpollob",
                 "password geos here",
@@ -801,6 +861,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The country name or code length is too short or too long!"));
 
     }
 
@@ -979,7 +1042,7 @@ public class UserValidationTest {
     @Test
     public void testValidatePasswordInvalidBecauseItHasNewLineCharacter(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here \n", // Password here
                 "Nurujjaman",
@@ -1002,6 +1065,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+       // Assert exception message
+       assertTrue(invalidUserException.getMessage().contains("Password or recovery question seems invalid!"));
+
     }
 
     /**
@@ -1012,7 +1078,7 @@ public class UserValidationTest {
     @Test
     public void testValidatePasswordInvalidBecauseItsTooShort(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "pswd", // Password here
                 "Nurujjaman",
@@ -1035,6 +1101,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+       // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The password secret message is null or it is too small or too long"));
+
     }
 
     /**
@@ -1045,7 +1114,7 @@ public class UserValidationTest {
     @Test
     public void testValidatePasswordInvalidBecauseItsNull(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 null, // Password here
                 "Nurujjaman",
@@ -1068,6 +1137,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The password secret message is null or it is too small or too long"));
+
     }
 
     /**
@@ -1078,9 +1150,11 @@ public class UserValidationTest {
     @Test
     public void testValidatePasswordInvalidBecauseItsTooLong(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
-                "pswdgdhfgdhsgfhdsgfhdjsgfhdsjgfjdsfgdshjfgdjsffghdgdfhgdfhgdfhghdsgfdshfgdshdhfdsgfdhsfgdhfgdshfgdsfhdgsfdfgdshfgdfhgdshfgdshfgds", // Password here
+                "pswdgdhfgdhsgfhdsgfhdjsgfhdsjgfjdsfgdshjfgdjsf" +
+                        "fghdgdfhgdfhgdfhghdsgfdshfgdshdhfdsgfdhsfgdhfgdsh" +
+                        "fgdsfhdgsfdfgdshfgdfhgdshfgdshfgds", // Password here
                 "Nurujjaman",
                 "Pollob",
                 "Address line one",
@@ -1100,6 +1174,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The password secret message is null or it is too small or too long"));
 
     }
 
@@ -1143,7 +1220,7 @@ public class UserValidationTest {
     @Test
     public void testValidateRecoveryQuestionInvalidBecauseItHasNewLineCharacter(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1166,6 +1243,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("Password or recovery question seems invalid!"));
+
     }
 
     /**
@@ -1176,7 +1256,7 @@ public class UserValidationTest {
     @Test
     public void testValidateRecoveryQuestionInvalidBecauseItsTooShort(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1199,6 +1279,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The password secret message is null or it is too small or too long"));
+
     }
 
     /**
@@ -1209,7 +1292,7 @@ public class UserValidationTest {
     @Test
     public void testValidateRecoveryQuestionInvalidBecauseItsNull(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1232,6 +1315,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The password secret message is null or it is too small or too long"));
+
     }
 
 
@@ -1243,7 +1329,7 @@ public class UserValidationTest {
     @Test
     public void testValidateRecoveryQuestionInvalidBecauseItsTooLong(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+      InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1268,6 +1354,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("The password secret message is null or it is too small or too long"));
 
     }
 
@@ -1312,7 +1401,7 @@ public class UserValidationTest {
     @Test
     public void testUserShortDescriptionInvalidBecauseItsTooShort(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+      InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1335,6 +1424,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+      // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
+
     }
 
     /**
@@ -1345,7 +1437,7 @@ public class UserValidationTest {
     @Test
     public void testUserShortDescriptionInvalidBecauseItsNull(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1368,6 +1460,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
+
     }
 
 
@@ -1379,7 +1474,7 @@ public class UserValidationTest {
     @Test
     public void testUserShortDescriptionInvalidBecauseItsTall(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1408,6 +1503,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
+
     }
 
 
@@ -1427,10 +1525,10 @@ public class UserValidationTest {
                 "Address line two (Optional)",
                 "Dinajpur",
                 "Bangladesh",
-                "" +
-                        "Hey,\n" +
-                        "It's me Nurujjaman Pollob. I'm a student and a noob programmer.\n" +
-                        "Glad to see you here 😙❤!️", // User short description
+                """
+                        Hey,
+                        It's me Nurujjaman Pollob. I'm a student and a noob programmer.
+                        Glad to see you here 😙❤!️""", // User short description
                 "User Bio",
                 "User hobby goes here",
                 "Recovery question goes here",
@@ -1455,7 +1553,7 @@ public class UserValidationTest {
     public void testUserBioInvalidBecauseItsNull(){
 
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1477,6 +1575,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
     }
 
 
@@ -1489,7 +1590,7 @@ public class UserValidationTest {
     public void testUserBioInvalidBecauseItsShort(){
 
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1511,6 +1612,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
     }
 
     /**
@@ -1522,7 +1626,7 @@ public class UserValidationTest {
     public void testUserBioInvalidBecauseItsLong(){
 
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1545,6 +1649,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
     }
 
     /**
@@ -1590,7 +1697,7 @@ public class UserValidationTest {
     @Test
     public void testUserHobbyIsInvalidBecauseHobbyLengthIsTooShort(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1613,6 +1720,9 @@ public class UserValidationTest {
                 true
         )).validateUser());
 
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
+
     }
 
     /**
@@ -1624,7 +1734,7 @@ public class UserValidationTest {
     @Test
     public void testUserHobbyIsInvalidBecauseHobbyLengthIsTooLong(){
 
-        assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
+       InvalidUserException invalidUserException = assertThrows(InvalidUserException.class, ()-> new UserValidation(new User(
                 "nurujjamanpollob",
                 "password goes here",
                 "Nurujjaman",
@@ -1647,6 +1757,9 @@ public class UserValidationTest {
                 false,
                 true
         )).validateUser());
+
+        // Assert exception message
+        assertTrue(invalidUserException.getMessage().contains("It seems user provided details null or it's too short or too long"));
 
     }
 

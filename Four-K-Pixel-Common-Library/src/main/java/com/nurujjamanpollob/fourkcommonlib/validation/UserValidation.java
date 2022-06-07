@@ -224,7 +224,7 @@ public record UserValidation(User userToValidate) {
     private void validateName(String name) throws InvalidUserException {
 
         if(name == null || name.length() > 16 || name.length() < 3){
-            throw new InvalidUserException("The Name can't be null");
+            throw new InvalidUserException("The Name can't be null or the name cant be shorter than 3 character or more than 16 characters");
         }
         // Create name pattern
         Pattern namePattern = Pattern.compile("^[A-Za-z]*$");
