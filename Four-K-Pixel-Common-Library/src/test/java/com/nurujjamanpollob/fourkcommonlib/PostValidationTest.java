@@ -495,7 +495,6 @@ public class PostValidationTest {
         assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
 
 
-
     }
 
 

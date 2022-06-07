@@ -147,4 +147,37 @@ public class UtilityCollectionTest {
 
         assertTrue(UtilityCollection.fileMimeTypeFromPath("testfiles/image/not-a-image-file.png").contains("text/plain"));
     }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method invoke {@link UtilityCollection#unixEpochTimeToHumanReadableTimeConverter(Long)} to convert a Unix like time (Current time) to human-readable format.
+     * which should contain 20 present in output String, here 20 means twenty century.
+     */
+    @Test
+    public void testCurrentUnixEpochTimeToHumanReadableFormat(){
+
+        // Get current Unix-Like time
+        long currentTimeMillis = System.currentTimeMillis();
+
+        // Convert to human-readable format
+        String currentTimeString = UtilityCollection.unixEpochTimeToHumanReadableTimeConverter(currentTimeMillis);
+
+        // Assert output
+        assertTrue(currentTimeString.contains("20"));
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method invoke {@link UtilityCollection#unixEpochTimeToHumanReadableTimeConverter(Long)} to convert a Unix like time to human-readable format.
+     * The supplied unix time long is invalid, and it should not contain 20 in output String, here 20 means twenty century.
+     */
+    @Test
+    public void testInvalidUnixEpochTimeToHumanReadableFormat(){
+
+        // Convert to human-readable format
+        String currentTimeString = UtilityCollection.unixEpochTimeToHumanReadableTimeConverter( 1000000L);//The unix time is invalid
+
+        // Assert output
+        assertFalse(currentTimeString.contains("20"));
+    }
 }
