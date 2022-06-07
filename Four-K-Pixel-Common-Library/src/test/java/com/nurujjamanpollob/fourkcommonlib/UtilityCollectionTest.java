@@ -60,9 +60,6 @@
 package com.nurujjamanpollob.fourkcommonlib;
 
 import com.nurujjamanpollob.fourkcommonlib.utility.UtilityCollection;
-import net.sf.jmimemagic.MagicException;
-import net.sf.jmimemagic.MagicMatchNotFoundException;
-import net.sf.jmimemagic.MagicParseException;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

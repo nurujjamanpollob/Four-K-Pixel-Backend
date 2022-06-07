@@ -90,7 +90,10 @@ public class PostValidationTest {
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
-        assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+      InvalidPostException invalidPostException = assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+
+      // assert exception message
+      assertTrue(invalidPostException.getMessage().contains("Post title is missing"));
     }
 
 
@@ -110,7 +113,10 @@ public class PostValidationTest {
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
-        assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+      InvalidPostException invalidPostException = assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+
+        // assert exception message
+        assertTrue(invalidPostException.getMessage().contains("Post title is missing, or it's length is not between 1 - 150 character"));
     }
 
     /**
@@ -130,7 +136,10 @@ public class PostValidationTest {
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
-        assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+       InvalidPostException invalidPostException = assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+
+        // assert exception message
+        assertTrue(invalidPostException.getMessage().contains("Post title is missing, or it's length is not between 1 - 150 character"));
     }
 
 
@@ -261,7 +270,10 @@ public class PostValidationTest {
                 "Testing, Image, Validating",
                 System.currentTimeMillis());
 
-        assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+      InvalidPostException invalidPostException =  assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+
+      // Assert exception message
+        assertTrue(invalidPostException.getMessage().contains("Post description length is too long, it should be under 5000 character"));
 
     }
 
@@ -350,7 +362,11 @@ public class PostValidationTest {
                         "The post tag is more than 250 character",
                 System.currentTimeMillis());
 
-        assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+      InvalidPostException invalidPostException = assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost());
+
+      // Assert exception message
+        assertTrue(invalidPostException.getMessage().contains("It seems the post tag length is too large, it should be under 250 characters"));
+
 
     }
 
@@ -458,6 +474,27 @@ public class PostValidationTest {
 
         // Validate throw message
         assertTrue(assertThrows(InvalidPostException.class, ()-> new PostValidation(userPost).validatePost()).getMessage().contains("It seems this file is not an image file"));
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method used to validate Post attachments, which is simply valid, and doesn't throw any exception.
+     */
+    @Test
+    public void testPostAttachmentIsValid(){
+
+        userPost = new Post(
+                "nurujjamanpollob",
+                "Nature and beauty, watch my shot, and follow me!",
+                "This image is subject to copyright. If you need to use this image in somewhere else, please credit to original author.",
+                new String[]{"testfiles/image/test-normal-image.png"}, // Post attachment(Image) paths should place here
+                "#Image #Validating #LargeImageShouldThrowException",
+                System.currentTimeMillis());
+
+        assertDoesNotThrow(()-> new PostValidation(userPost).validatePost());
+
+
 
     }
 
