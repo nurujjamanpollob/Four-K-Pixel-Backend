@@ -64,9 +64,6 @@ import com.nurujjamanpollob.fourkcommonlib.model.Post;
 import com.nurujjamanpollob.fourkcommonlib.utility.UtilityCollection;
 import com.nurujjamanpollob.fourkcommonlib.utility.Variables;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * @author Nurujjaman Pollob 2022
@@ -74,12 +71,40 @@ import java.nio.file.Path;
  */
 public record PostValidation(Post postToValidate) {
 
+    private static boolean debugDeleteFileIfInvalid;
     /**
      * @author Nurujjaman Pollob 2022
      * @apiNote Invoking this method will validate all method value from {@link Post}
      * @throws InvalidPostException if the validation methods throws {@link InvalidPostException}
      */
     public void validatePost() throws InvalidPostException{
+
+        // Validate post title
+        validatePostTitle();
+
+        // Validate post description
+        validatePostDescription();
+
+        // Validate post tags
+        validatePostTags();
+
+        // Validate post attachments(Image expected)
+        validateAttachments();
+
+    }
+
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Invoking this method will validate all method value from {@link Post}
+     * @param debugDeleteAttachment used to delete attachment files,
+     *                              if an attachment file is missing, file is not a image file,
+     *                              or larger than approved file byte length, declared here: {@link Variables#UPLOAD_FILE_MAX_SIZE}
+     * @throws InvalidPostException if the validation methods throws {@link InvalidPostException}
+     */
+    @SuppressWarnings({"unused"})
+    public void validatePost(Boolean debugDeleteAttachment) throws InvalidPostException{
+
+        debugDeleteFileIfInvalid = debugDeleteAttachment;
 
         // Validate post title
         validatePostTitle();
@@ -157,8 +182,10 @@ public record PostValidation(Post postToValidate) {
 
            if (!isFileIsValidImageAndSizeWithinMaxLimit(s)){
 
-               // Delete all uploaded file from the server
-              // UtilityCollection.deleteFiles(attachmentsPath);
+               // Delete attachment if found invalid
+              if(debugDeleteFileIfInvalid) {
+                  UtilityCollection.deleteFiles(attachmentsPath);
+              }
                throw new InvalidPostException("It seems this file is not an image file, or the file is empty or the image length is more than 15MB");
            }
         }
