@@ -24,6 +24,10 @@ dependencies {
     implementation project(':Four-K-Pixel-Common-Library')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
+    implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.11'
+
+
 }
 
 tasks.named('test') {

@@ -57,16 +57,38 @@
  *  </code>
  */
 
-package com.nurujjamanpollob.fourkpixelbackend.controllers;
+package com.nurujjamanpollob.fourkpixelbackend.controllers.utility;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
-/**
- * Rest API controller of Four K Pixel Application.
- * All API Related method can be found here.
- *
- */
-// TODO : Time to add some Rest Endpoint - QUEUED
-@RestController
-public class RestApiController {
+// TODO - Write driver class to check database connection
+public class MongoDataConnectionTest {
+
+    public static boolean isTestDatabaseConnectionSuccess() {
+
+
+        MongoClient mongoClient;
+        MongoDatabase database;
+
+        try {
+            mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017/"));
+            database = mongoClient.getDatabase("FourKPixelDatabase");
+        } catch (Exception e) {
+
+            return false;
+        }
+
+        MongoCollection<Document> collection = database.getCollection("FourKPixelDatabase");
+
+        mongoClient.close();
+
+
+        return true;
+
+
+    }
 }
