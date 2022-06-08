@@ -57,26 +57,10 @@
  *  </code>
  */
 
-package com.nurujjamanpollob.fourkpixelbackend;
+package com.nurujjamanpollob.fourkcommonlib.mongoserver;
 
-import com.nurujjamanpollob.fourkcommonlib.mongoserver.MongoServerConnectionTest;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.mongodb.event.ServerMonitorListener;
 
-@SpringBootApplication
-public class FourKPixelBackendApplication {
-
-    public static void main(String[] args) {
-
-        if(MongoServerConnectionTest.isTestDatabaseConnectionSuccess()) {
-
-            System.out.println("Database connection successes!");
-            SpringApplication.run(FourKPixelBackendApplication.class, args);
-        }else {
-
-            System.out.println("Database Connection to MongoDB server is failed, unable to launch this module");
-        }
-
-    }
+public interface MongoServerConnectionListener extends ServerMonitorListener {
 
 }

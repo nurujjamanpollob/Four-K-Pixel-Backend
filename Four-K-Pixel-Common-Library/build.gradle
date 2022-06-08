@@ -14,6 +14,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'commons-io:commons-io:2.11.0'
+    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
+    implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.11'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     implementation files('libs/jmimemagic-0.1.6.jar')
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
