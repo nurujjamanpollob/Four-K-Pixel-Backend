@@ -62,7 +62,6 @@ package com.nurujjamanpollob.fourkcommonlib.mongoserver;
 public enum ConnectionStrategy {
 
     /** Simple URL status - a flat URL like <code>localhost</code> */ SIMPLE_URL,
-    /** Custom URL status - a fully qualifier URL to database server, like <code>mongodb://localhost:27017/</code> */  CUSTOM_URL,
     /** Simple URL status - a flat URL like <code>localhost, 27017</code> */ URL_AND_PORT,
     /** Multiple URL status - an array of URLs like <code>Arrays.asList(new ServerAddress("localhost", 27017),
      new ServerAddress("localhost", 27018),
