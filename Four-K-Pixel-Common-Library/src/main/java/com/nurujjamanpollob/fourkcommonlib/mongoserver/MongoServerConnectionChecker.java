@@ -94,10 +94,10 @@ public class MongoServerConnectionChecker {
     }
 
     /**
-     * @author Nurujjaman Pollob 2022
-     * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with a server address
-     * Using default port setting. No auth is used.
      * @param mongoURL the mongodb URL, for example <pre><code>localhost</code></pre>
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with a server address,
+     * Using default port setting. No auth is used.
      */
     public MongoServerConnectionChecker(String mongoURL) {
 
@@ -110,10 +110,10 @@ public class MongoServerConnectionChecker {
 
 
     /**
+     * @param connectionServerAddresses the {@link ServerAddress} array, for example {@link ServerAddress#ServerAddress(String, int)} array
      * @author Nurujjaman Pollob 2022
      * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with several server connection.
      * No auth is used.
-     * @param connectionServerAddresses the {@link ServerAddress} array, for example {@link ServerAddress#ServerAddress(String, int)} array
      */
     public MongoServerConnectionChecker(ServerAddress[] connectionServerAddresses) {
 
@@ -125,11 +125,11 @@ public class MongoServerConnectionChecker {
     }
 
     /**
+     * @param mongoURL        the mongodb URL, for example <pre><code>localhost</code></pre>
+     * @param mongoServerPort the server port, for example <pre><code>27017</code></pre>
      * @author Nurujjaman Pollob 2022
      * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with a server address
-     * Using customized port setting
-     * @param mongoURL the mongodb URL, for example <pre><code>localhost</code></pre>
-     * @param mongoServerPort the server port, for example <pre><code>27017</code></pre>
+     * and customized port setting
      */
     public MongoServerConnectionChecker(String mongoURL, Integer mongoServerPort) {
 
@@ -140,6 +140,27 @@ public class MongoServerConnectionChecker {
         useSSL = false;
     }
 
+    /**
+     * @param mongoURL        the mongodb server URL, for instance <pre><code>localhost</code></pre>
+     * @param mongoServerPort the mongodb server port, for example <pre><code>27017</code></pre>
+     * @param userName        the database or server username
+     * @param password        the database or server password
+     * @param databaseName    the database name to check connection for
+     * @param authMechanism   the auth mechanism name to create instance for a {@link MongoCredential},
+     *                        <b>Note:</b> If you use {@link MongoAuthMechanism#GSSAPI}, you may need to set following JVM system properties:
+     *                        <pre>
+     *                                                 <code>
+     *
+     *                                             java.security.krb5.realm=MYREALM.ME
+     *                                             java.security.krb5.kdc=mykdc.myrealm.me
+     *
+     *                                             </code>
+     *                                             </pre>
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with a server address
+     * and port setting.
+     * This parameter using {@link MongoCredential} to generate credential for {@link com.mongodb.client.MongoClient} instance and auth with mongodb server
+     */
     public MongoServerConnectionChecker(String mongoURL, Integer mongoServerPort, String userName, String password, String databaseName, MongoAuthMechanism authMechanism) {
 
         this.isUseAuthentication = true;
@@ -151,7 +172,37 @@ public class MongoServerConnectionChecker {
         this.mongoDatabaseName = databaseName;
         this.mongoAuthMechanism = authMechanism;
 
-        if(authMechanism == MongoAuthMechanism.X_509){
+        if (authMechanism == MongoAuthMechanism.X_509) {
+            useSSL = true;
+        }
+    }
+
+    public MongoServerConnectionChecker(String mongoURL, String userName, String password, String databaseName, MongoAuthMechanism authMechanism) {
+
+        this.isUseAuthentication = true;
+        this.connectionStrategy = ConnectionStrategy.SIMPLE_URL;
+        this.mongoURL = mongoURL;
+        this.mongoServerUserName = userName;
+        this.mongoServerPassword = password;
+        this.mongoDatabaseName = databaseName;
+        this.mongoAuthMechanism = authMechanism;
+
+        if (authMechanism == MongoAuthMechanism.X_509) {
+            useSSL = true;
+        }
+    }
+
+    public MongoServerConnectionChecker(ServerAddress[] serverAddresses, String userName, String password, String databaseName, MongoAuthMechanism authMechanism) {
+
+        this.isUseAuthentication = true;
+        this.connectionStrategy = ConnectionStrategy.MULTIPLE_URL;
+        this.serverAddresses = serverAddresses;
+        this.mongoServerUserName = userName;
+        this.mongoServerPassword = password;
+        this.mongoDatabaseName = databaseName;
+        this.mongoAuthMechanism = authMechanism;
+
+        if (authMechanism == MongoAuthMechanism.X_509) {
             useSSL = true;
         }
     }
@@ -198,7 +249,7 @@ public class MongoServerConnectionChecker {
 
     private MongoClient initializeMongoClient() {
 
-        if(isUseAuthentication){
+        if (isUseAuthentication) {
 
             // Initialize MongoClient instance with auth
             return initializeMongoConnectionWithAuth();
@@ -207,16 +258,16 @@ public class MongoServerConnectionChecker {
         return initializeMongoConnectionWithoutAuth();
     }
 
-    private MongoClient initializeMongoConnectionWithoutAuth(){
+    private MongoClient initializeMongoConnectionWithoutAuth() {
 
 
         // Create MongoClient with mongo connect url and using default port
-        if(connectionStrategy == ConnectionStrategy.SIMPLE_URL){
+        if (connectionStrategy == ConnectionStrategy.SIMPLE_URL) {
             return new MongoClient(mongoURL, clientOptions);
         }
 
         // Create MongoClient with mongo connect url and server port
-        if(connectionStrategy == ConnectionStrategy.URL_AND_PORT){
+        if (connectionStrategy == ConnectionStrategy.URL_AND_PORT) {
             return new MongoClient(new ServerAddress(mongoURL, serverPort), clientOptions);
         }
 
@@ -224,10 +275,10 @@ public class MongoServerConnectionChecker {
         return new MongoClient(Arrays.asList(serverAddresses), clientOptions);
     }
 
-    private MongoClient initializeMongoConnectionWithAuth(){
+    private MongoClient initializeMongoConnectionWithAuth() {
 
         // Default auth mechanism
-        if(mongoAuthMechanism == MongoAuthMechanism.DEFAULT){
+        if (mongoAuthMechanism == MongoAuthMechanism.DEFAULT) {
 
             // Create auth mechanism
             MongoCredential credential = MongoCredential.createCredential(mongoServerUserName, mongoDatabaseName, mongoServerPassword.toCharArray());
@@ -237,7 +288,7 @@ public class MongoServerConnectionChecker {
         }
 
         // SCRAM-SHA-1 auth mechanism
-        if(mongoAuthMechanism == MongoAuthMechanism.SCRAM_SHA_1){
+        if (mongoAuthMechanism == MongoAuthMechanism.SCRAM_SHA_1) {
 
             // Create auth mechanism
             MongoCredential credential = MongoCredential.createScramSha1Credential(mongoServerUserName, mongoDatabaseName, mongoServerPassword.toCharArray());
@@ -247,7 +298,7 @@ public class MongoServerConnectionChecker {
         }
 
         // SCRAM-SHA-256 auth mechanism
-        if(mongoAuthMechanism == MongoAuthMechanism.SCRAM_SHA_256){
+        if (mongoAuthMechanism == MongoAuthMechanism.SCRAM_SHA_256) {
 
             // Create auth mechanism
             MongoCredential credential = MongoCredential.createScramSha256Credential(mongoServerUserName, mongoDatabaseName, mongoServerPassword.toCharArray());
@@ -257,7 +308,7 @@ public class MongoServerConnectionChecker {
         }
 
         // MongoDB-CR auth mechanism
-        if(mongoAuthMechanism == MongoAuthMechanism.MONGODB_CR){
+        if (mongoAuthMechanism == MongoAuthMechanism.MONGODB_CR) {
 
             // Create auth mechanism
             MongoCredential credential = MongoCredential.createMongoCRCredential(mongoServerUserName, mongoDatabaseName, mongoServerPassword.toCharArray());
@@ -268,7 +319,7 @@ public class MongoServerConnectionChecker {
         }
 
         // X.509 auth mechanism
-        if(mongoAuthMechanism == MongoAuthMechanism.X_509){
+        if (mongoAuthMechanism == MongoAuthMechanism.X_509) {
 
 
             // Create auth mechanism
@@ -280,7 +331,7 @@ public class MongoServerConnectionChecker {
         }
 
         // Kerberos (GSSAPI) auth mechanism
-        if(mongoAuthMechanism == MongoAuthMechanism.GSSAPI){
+        if (mongoAuthMechanism == MongoAuthMechanism.GSSAPI) {
             // Create auth mechanism
             MongoCredential credential = MongoCredential.createGSSAPICredential(mongoServerUserName);
 
@@ -294,20 +345,19 @@ public class MongoServerConnectionChecker {
         return createAuthMongoClientAccordingToConnectionStrategy(credential);
 
 
-
     }
 
-    private MongoClient createAuthMongoClientAccordingToConnectionStrategy(MongoCredential mongoCredential){
+    private MongoClient createAuthMongoClientAccordingToConnectionStrategy(MongoCredential mongoCredential) {
 
-        if(connectionStrategy == ConnectionStrategy.URL_AND_PORT){
+        if (connectionStrategy == ConnectionStrategy.URL_AND_PORT) {
 
-            // Return client
+            // Return client using customized port option
             return new MongoClient(new ServerAddress(mongoURL, serverPort), mongoCredential, clientOptions);
         }
 
-        if(connectionStrategy == ConnectionStrategy.SIMPLE_URL){
+        if (connectionStrategy == ConnectionStrategy.SIMPLE_URL) {
 
-            // Return client
+            // Return client using default port
             return new MongoClient(new ServerAddress(mongoURL), mongoCredential, clientOptions);
         }
 
@@ -315,7 +365,6 @@ public class MongoServerConnectionChecker {
         return new MongoClient(List.of(serverAddresses), mongoCredential, clientOptions);
 
     }
-
 
 
     public void endMongoConnection() {
