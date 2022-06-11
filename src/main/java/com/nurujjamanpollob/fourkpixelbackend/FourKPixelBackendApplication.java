@@ -59,17 +59,61 @@
 
 package com.nurujjamanpollob.fourkpixelbackend;
 
+import com.mongodb.event.ServerHeartbeatFailedEvent;
+import com.mongodb.event.ServerHeartbeatStartedEvent;
+import com.mongodb.event.ServerHeartbeatSucceededEvent;
+import com.nurujjamanpollob.fourkcommonlib.exception.MongoConnectionException;
+import com.nurujjamanpollob.fourkcommonlib.mongoserver.MongoServerConnectionChecker;
+import com.nurujjamanpollob.fourkcommonlib.mongoserver.MongoServerConnectionListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class FourKPixelBackendApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MongoConnectionException {
 
 
-            SpringApplication.run(FourKPixelBackendApplication.class, args);
+        MongoServerConnectionChecker connectionChecker = new MongoServerConnectionChecker("localhost", 27017);
 
+        connectionChecker.setServerConnectionListener(new MongoServerConnectionListener() {
+            /**
+             * Listener for server heartbeat started events.
+             *
+             * @param event the server heartbeat started event
+             */
+            @Override
+            public void serverHearbeatStarted(ServerHeartbeatStartedEvent event) {
+
+                System.out.println("Please wait a while, connection test to database server is on way.");
+
+            }
+
+            /**
+             * Listener for server heartbeat succeeded events.
+             *
+             * @param event the server heartbeat succeeded event
+             */
+            @Override
+            public void serverHeartbeatSucceeded(ServerHeartbeatSucceededEvent event) {
+                System.out.println("Server is up and running...");
+                SpringApplication.run(FourKPixelBackendApplication.class, args);
+            }
+
+            /**
+             * Listener for server heartbeat failed events.
+             *
+             * @param event the server heartbeat failed event
+             */
+            @Override
+            public void serverHeartbeatFailed(ServerHeartbeatFailedEvent event) {
+
+                System.out.println("Database server is not running now, so the application unable to run!");
+            }
+        });
+
+
+        connectionChecker.invokeConnectionTest();
 
 
     }

@@ -65,7 +65,7 @@ import com.nurujjamanpollob.fourkcommonlib.exception.MongoConnectionException;
 import java.util.Arrays;
 import java.util.List;
 
-// TODO - This missing Unit test, documentation, some constructor parameters
+// TODO - This class missing Unit test, documentation, some constructor parameters
 public class MongoServerConnectionChecker {
 
 
@@ -152,7 +152,6 @@ public class MongoServerConnectionChecker {
      *                        <li>java.security.krb5.realm=MYREALM.ME</li>
      *                        <li>java.security.krb5.kdc=mykdc.myrealm.me</li>
      *                        </ul>
-     *
      * @author Nurujjaman Pollob 2022
      * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with a server address
      * and port setting.
@@ -175,17 +174,16 @@ public class MongoServerConnectionChecker {
     }
 
     /**
-     * @param mongoURL        the mongodb server URL, for instance <pre><code>localhost</code></pre>
-     * @param userName        the database or server username
-     * @param password        the database or server password
-     * @param databaseName    the database name to check connection for
-     * @param authMechanism   the auth mechanism name to create instance for a {@link MongoCredential}. <br />
-     *                        <b>Note:</b> If you use {@link MongoAuthMechanism#GSSAPI}, you may need to set following JVM system properties: <br />
-     *                        <ul>
-     *                        <li>java.security.krb5.realm=MYREALM.ME</li>
-     *                        <li>java.security.krb5.kdc=mykdc.myrealm.me</li>
-     *                        </ul>
-     *
+     * @param mongoURL      the mongodb server URL, for instance <pre><code>localhost</code></pre>
+     * @param userName      the database or server username
+     * @param password      the database or server password
+     * @param databaseName  the database name to check connection for
+     * @param authMechanism the auth mechanism name to create instance for a {@link MongoCredential}. <br />
+     *                      <b>Note:</b> If you use {@link MongoAuthMechanism#GSSAPI}, you may need to set following JVM system properties: <br />
+     *                      <ul>
+     *                      <li>java.security.krb5.realm=MYREALM.ME</li>
+     *                      <li>java.security.krb5.kdc=mykdc.myrealm.me</li>
+     *                      </ul>
      * @author Nurujjaman Pollob 2022
      * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with a server address, and without a preferred port setting.
      * This parameter using {@link MongoCredential} to generate credential for {@link com.mongodb.client.MongoClient} instance and auth with mongodb server.
@@ -217,7 +215,6 @@ public class MongoServerConnectionChecker {
      *                        <li>java.security.krb5.realm=MYREALM.ME</li>
      *                        <li>java.security.krb5.kdc=mykdc.myrealm.me</li>
      *                        </ul>
-     *
      * @author Nurujjaman Pollob 2022
      * @apiNote This construct param used to create and configure {@link com.mongodb.client.MongoClient} instance with a list of server addresses from {@link ServerAddress}
      * This parameter using {@link MongoCredential} to generate credential for {@link com.mongodb.client.MongoClient} instance and auth with mongodb server
@@ -239,11 +236,11 @@ public class MongoServerConnectionChecker {
 
 
     /**
+     * @throws MongoConnectionException when you pass a null value for this method {@link MongoServerConnectionChecker#setServerConnectionListener(MongoServerConnectionListener)}
+     *                                  or, you forget to pass a {@link MongoServerConnectionListener} instance, or you pass a value to {@link MongoServerConnectionChecker#setServerConnectionListener(MongoServerConnectionListener)} after invoke this method,
+     *                                  which is unchecked and treated the listener as null.
      * @author Nurujjaman Pollob 2022
      * @apiNote Method to invoke MongoDB connection test.
-     * @throws MongoConnectionException when you pass a null value for this method {@link MongoServerConnectionChecker#setServerConnectionListener(MongoServerConnectionListener)}
-     * or, you forget to pass a {@link MongoServerConnectionListener} instance, or you pass a value to {@link MongoServerConnectionChecker#setServerConnectionListener(MongoServerConnectionListener)} after invoke this method,
-     * which is unchecked and treated the listener as null.
      */
     public void invokeConnectionTest() throws MongoConnectionException {
 
@@ -273,7 +270,8 @@ public class MongoServerConnectionChecker {
     }
 
     /**
-     *
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method that construct and create an instance of {@link MongoClientOptions} and set up connection listener
      */
     private void initializeConnectionListener() {
 
@@ -284,11 +282,24 @@ public class MongoServerConnectionChecker {
                 .build();
     }
 
+    /**
+     * @param mongoServerConnectionListener the {@link MongoServerConnectionListener} instance to receive network connection callback.
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to set a {@link MongoServerConnectionListener} instance to receive network connection callback.
+     */
     public void setServerConnectionListener(MongoServerConnectionListener mongoServerConnectionListener) {
 
         this.serverConnectionListener = mongoServerConnectionListener;
     }
 
+    /**
+     * @return {@link com.mongodb.client.MongoClient} from {@link MongoServerConnectionChecker#initializeMongoConnectionWithAuth()}
+     * if {@link MongoServerConnectionChecker#isUseAuthentication} true, else {@link MongoServerConnectionChecker#initializeMongoConnectionWithoutAuth()} is returned.
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method that return a {@link com.mongodb.client.MongoClient} instance, according to constructor param call.
+     * @see MongoServerConnectionChecker#initializeMongoConnectionWithAuth()
+     * @see MongoServerConnectionChecker#initializeMongoConnectionWithoutAuth()
+     */
     private MongoClient initializeMongoClient() {
 
         if (isUseAuthentication) {
@@ -300,6 +311,12 @@ public class MongoServerConnectionChecker {
         return initializeMongoConnectionWithoutAuth();
     }
 
+    /**
+     * @return {@link MongoClient}
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method return a {@link MongoClient}, the parameter is depending on {@link ConnectionStrategy} values.
+     * This is obviously usages no auth
+     */
     private MongoClient initializeMongoConnectionWithoutAuth() {
 
 
@@ -317,6 +334,23 @@ public class MongoServerConnectionChecker {
         return new MongoClient(Arrays.asList(serverAddresses), clientOptions);
     }
 
+    /**
+     * @return {@link MongoClient} with credential get from constructor to use a {@link MongoCredential} for authorization with mongodb server.
+     * @author Nurujjaman Pollob 2022
+     * @apiNote This method return a {@link MongoClient}, the parameter is depending on {@link ConnectionStrategy} and {@link MongoAuthMechanism} <br />
+     * In created {@link com.mongodb.client.MongoClient} instance, It usages this list of {@link MongoCredential} instance, to generate this instance.
+     * <br />
+     * <ul>
+     *     <li>{@link MongoCredential#createCredential(String, String, char[])}</li>
+     *     <li>{@link MongoCredential#createScramSha1Credential(String, String, char[])}</li>
+     *     <li>{@link MongoCredential#createScramSha256Credential(String, String, char[])}</li>
+     *     <li>{@link MongoCredential#createMongoCRCredential(String, String, char[])}</li>
+     *     <li>{@link MongoCredential#createMongoX509Credential(String)}</li>
+     *     <li>{@link MongoCredential#createGSSAPICredential(String)}</li>
+     *     <li>{@link MongoCredential#createPlainCredential(String, String, char[])}</li>
+     * </ul>
+     * <br />
+     */
     private MongoClient initializeMongoConnectionWithAuth() {
 
         // Default auth mechanism
@@ -389,6 +423,14 @@ public class MongoServerConnectionChecker {
 
     }
 
+    /**
+     * @param mongoCredential the {@link MongoCredential} instance to contract with {@link com.mongodb.client.MongoClient}
+     * @return {@link com.mongodb.client.MongoClient}
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Create a {@link com.mongodb.client.MongoClient} instance with a passed {@link MongoCredential} instance,
+     * and the generated {@link com.mongodb.client.MongoClient} is depending on {@link ConnectionStrategy} enum values to generate an accurate instance,
+     * based on passed constructor method.
+     */
     private MongoClient createAuthMongoClientAccordingToConnectionStrategy(MongoCredential mongoCredential) {
 
         if (connectionStrategy == ConnectionStrategy.URL_AND_PORT) {
@@ -409,6 +451,10 @@ public class MongoServerConnectionChecker {
     }
 
 
+    /**
+     * @author Nurujjaman Pollob 2022
+     * @apiNote Method to end a running {@link MongoClient} instance, if it's not null
+     */
     public void endMongoConnection() {
 
         if (client != null) {
